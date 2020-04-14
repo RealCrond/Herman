@@ -1,0 +1,10 @@
+#pragma once
+
+
+//自定义控件ComputerExamineUI
+class ComputerExamineUI : public CContainerUI
+{
+public:
+	ComputerExamineUI();
+	virtual ~ComputerExamineUI();
+};

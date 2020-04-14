@@ -24,5 +24,8 @@
         <Button name="closebtn" maxwidth="45" maxheight="17" normalimage="file='image\sys_dlg_close.png' source='90,0,135,17'" hotimage="file='image\sys_dlg_close.png' source='45,0,90,17'" pushedimage="file='image\sys_dlg_close.png' source='0,0,45,17'"/>
       </HorizontalLayout>
     </HorizontalLayout>
+	<HorizontalLayout>
+       <ComputerExamine />
+    </HorizontalLayout>
    </VerticalLayout>
 </Window>
