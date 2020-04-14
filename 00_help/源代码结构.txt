@@ -1,0 +1,130 @@
+OpenCV 3.x 与之前版本的不同
+
+1）以C++ 风格API为主，C 风格的API 最终可能会取消。
+2）C++ API 更加简洁，引入很多C++面向对象的特性
+3） 算法都将继承自 cv::Algorithm 接口。
+4） 模块分类细化，意义和功能明显。
+
+源代码结构：
+1）3rdparty/，OpenCV依赖的第三方库，比如：ffmpeg，jpg、png、tiff等。
+
+2）apps/，包含进行 haar 分类器训练的工具，opencv 进行人脸检测便是基于 haar 分类器。
+
+3）cmake/，OpenCV工程编译需要的cmake相关文件，用于智能搜索第三方库。
+
+4）include/，工程头文件。其中，C 语言风格的API在opencv 子文件夹中 ，opencv2 子文件中有一个 opencv.hpp 文件， cv2.x和cv3.x推荐使用。
+
+5）modules/，功能模块核心代码。
+
+6）platforms/，交叉编译所需的工具链及额外的代码。
+
+7）samples/，OpenCV的使用范例
+
+8）data/， opencv 库以及范例中用到的资源文件，例如人脸检测的模型数据文件等。
+
+9）doc/，编译生成文档所需文件及辅助脚本。
+
+非GPU相关模块：
+1）androidcamera/，android平台相机设备相关接口。
+
+2）core/，核心模块，定义基本的数据结构，例如：Mat 类、XML 读写、opengl三维渲染等。
+
+3）imgproc/，含图像滤波、集合图像变换、直方图计算、形状描述子等功能。
+
+4）imgcodec/，各种格式的图片的读写。
+
+5）highgui/，高级图形界面及与 QT 框架的整合。
+
+6）video/，视频分析相关模块。包括背景提取、光流跟踪、卡尔曼滤波等。
+
+7）videoio/，视频文件读写读写相关，包含摄像头、Kinect 等的输入。
+
+8）calib3d/，相机标定及三维重建相关。相机标定用于消除广角相机画面畸变。三维重建，例如，在双目视觉（立体视觉）中，基于两个标定的摄像头观察同一个场景，计算两幅画面中的相关性来估算像素的深度。
+
+9）features2d/， 2D 特征值检测的框架。包含各种特征值检测器及描述子，例如 FAST、MSER、OBRB、BRISK等。各类特征值拥有统一的算法接口，因此在不影响程序逻辑的情况下可以进行替换。
+
+10）objdetect/，物体检测模块。包括haar分类器、SVM检测器及文字检测。
+
+11） ml/，机器学习相关。包括统计模型、K最近邻、支持向量机、决策树、神经网络等经典的机器学习算法。
+
+12）flann/，多维空间内聚类及搜索近似最近邻的算法。
+
+13）photo/，计算摄影学。包括图像修补、去噪、HDR成像、非真实感渲染等。可实现类似Photoshop高级功能。
+
+14）stitching/，图像拼接，全景制作。
+
+15）nonfree/，有专利的算法。如：SIFT和SURF。
+
+16）shape/，形状匹配相关模块。用于描述形状、比较形状。
+
+17）softcascade/，Soft Cascade 分类器物体检测算法，含检测和训练模块。
+
+18）superres/，超分辨率相关，增强图像的分辨率。
+
+19）videostab/，视频消除抖动相关，例如，用于解决相机移动时拍摄的视频不稳定问题。
+
+20）viz/，三维可视化模块。一个简单的三维可视化引擎，有各种UI控件和键盘、鼠标交互方式，底层实现基于 VTK 库。
+
+GPU相关模块：
+模块的名称以 cuda 为开始，cuda 是显卡制造商 NVIDIA 推出的通用计算语言，cv3中有大量的模块已基于cuda实现。
+1）cuda/，CUDA-加速的计算机视觉算法，包括数据结构 cuda::GpuMat、 基于cuda的相机标定及三维重建等。
+
+2）cudaarithm/，CUDA-加速的矩阵运算模块。
+
+3）cudabgsegm/，CUDA-加速的背景分割模块，通常用于视频监控。
+
+4）cudacodec/，CUDA-加速的视频编码与解码。
+
+5）cudafeatures2d/，CUDA-加速的特征检测与描述模块，与features2d/模块功能类似。
+
+6）cudafilters/，CUDA-加速的图像滤波。
+
+7）cudaimgproc/，CUDA-加速的图像处理算法，包含直方图计算、霍夫变换等。
+
+8）cudaoptflow/，CUDA-加速的光流检测算法。
+
+9）cudastereo/，CUDA-加速的立体视觉匹配算法。
+
+10）cudawarping/，实现了 CUDA-加速的快速图像变换，包括透视变换、旋转、改变尺寸等。
+
+11）cudaev/，实现 CUDA 版本的核心功能，类似 core/ 模块中的基础算法。
+
+--------------------- 
+作者：凌风探梅 
+来源：CSDN 
+原文：https://blog.csdn.net/real_myth/article/details/52872561 
+版权声明：本文为博主原创文章，转载请附上博文链接！
+
+
+aruco ：增强现实
+bgsegm：背景分割
+bioinspired：生物视觉
+ccalib：自定义标定
+cnn_3dobj ：CNN物体识别和姿态估计
+cvv：计算机视觉调试的交互GUI
+datasets：数据集读取器
+dnn_objdetect： CNNs 的物体检测模型
+dnns_easily_fooled：欺骗CNN
+dpm：可变型部件模型
+face：人脸识别
+fuzzy：视觉的模糊逻辑
+freetype：写字
+hdf：hdf存储
+line_descriptor：线条匹配与提取
+matlab
+optflow：光流
+ovis：3D可视化
+plot：画图
+reg：图像注册
+rgbd：RGB-Depth处理模块
+saliency：显著性
+sfm：2D到3D的算法
+stereo：立体匹配
+structured_light：结构光
+surface_matching：平面匹配
+text：文字识别
+tracking：目标跟踪
+xfeatures2d： 2d特征算法
+ximgproc：扩展的图像处理
+xobjdetect：增强的2d物体检测
+xphoto：额外的照片处理

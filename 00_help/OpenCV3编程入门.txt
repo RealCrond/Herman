@@ -1,0 +1,89 @@
+﻿第一部分：快速上手Opencv
+第一章：邂逅OpenCV
+第二章：安装、官方示例
+	彩色目标跟踪 camshift
+	光流 optical flow
+	点追踪 lkdemo
+	人脸识别 objectDetection
+	支持向量机
+第三章：HighGUI
+ imread
+ imshow
+ namedWindow
+ imwrite
+ void addWeighted(InputArray src1, double alpha, InputArray src2,
+                              double beta, double gamma, OutputArray dst, int dtype = -1);
+ VideoCaptures
+
+第二部分：初探core组件
+第四章：OpenCV数据结构与基本绘图
+		基础图像容器Mat
+		常用数据结构和函数(Point Scalar Size Rect cvtColor)
+		基本图形的绘制(DrawEllipse DrawFilledCircle DrawPolygon DrawLine)
+第五章：Core组件进阶
+		访问图像中的像素
+		ROI
+		颜色通道的分离和混合
+		图像对比度、亮度值调整
+		离散傅里叶变换
+		XML&YAML读写
+
+第三部分：掌握Imgproc组件
+第六章：图像处理（线性滤波、非线性滤波、形态学滤波、漫水填充、图像金字塔与图片尺寸缩放、阈值化）
+  线性滤波：方框滤波boxFilter 均值滤波blur 高斯滤波GaussianBlur
+  非线性滤波：中值滤波medianBlur、双边滤波bilateralFilter（通过此种方式，其既能平滑图像，又保持了图像的边缘。）
+  形态学滤波morphologyEx：腐蚀erode、膨胀dilate、开运算(先腐蚀后膨胀)open、闭运算(先膨胀后腐蚀)close、形态学梯度(膨胀图与腐蚀图之差)morph-grad、顶帽(原图像与开运算的结果图之差)tophat、黑帽(闭运算的结果图与原图像之差)blackhat、击中击不中运算(只支持CV_8UC1类型的二值图像)
+		腐蚀和膨胀是针对白色部分（高亮部分）而言的。膨胀就是对图像高亮部分进行“领域扩张”，效果图拥有比原图更大的高亮区域；腐蚀是原图中的高亮区域被蚕食，效果图拥有比原图更小的高亮区域。膨胀
+		开运算：先腐蚀再膨胀，用来消除小物体
+		闭运算：先膨胀再腐蚀，用于排除小型黑洞
+		形态学梯度：就是膨胀图与腐蚀图之差，用于保留物体的边缘轮廓。
+		顶帽：原图像与开运算图之差，用于分离比邻近点亮一些的斑块。
+		黑帽：闭运算与原图像之差，用于分离比邻近点暗一些的斑块。
+  漫水填充：floodFill
+  图像金字塔与图片尺寸缩放:高斯金字塔 &拉普拉斯金字塔 resize() pyrUp()  pyrDown()
+  阈值化：Threshold() adaptiveThreshold()
+第七章：图像变换（边缘检测、霍夫变换、重映射、仿射变换、直方图均衡化）
+ 边缘检测的一般步骤：1.滤波 2.增强 3.检测  Canny() Sobel() Laplacian() Scharr()
+ 霍夫变换(一种特征提取技术)：标准霍夫变换HoughLines()、多尺度霍夫变换、累计概率霍夫变换HoughLinesP()
+ 霍夫圆变换：HoughCircles()
+ 重映射：remap()
+ 仿射变换：warpAffine()  getRotationMatrix2D()  getAffineTransform()
+		   warpPerspective() getPerspectiveTransform()
+ 直方图均衡化：equalizeHist()
+第八章：图像轮廓与图像分割修复（查找并绘制轮廓、寻找物体的凸包、使用多边形将轮廓包围、图像的矩、分水岭算法、图像修补）
+  查找并绘制轮廓:findContours() drawContours()
+  寻找物体的凸包:convexHull()
+  使用多边形将轮廓包围:boundingRect() minAreaRect() minEnclosingCircle() fitEllipse() approxPolyDP() 
+  图像的矩:moments() contourArea() arcLength() 
+  分水岭算法:watershed()
+  图像修补:inpaint()
+第九章：直方图与匹配（图像直方图、直方图的计算与绘制、直方图对比、方向投射、模板匹配）
+  直方图的计算与绘制:calcHist() minMacLoc() 
+  直方图对比:compareHist()
+  模板匹配:matchTemplate()
+
+
+第四部分：深入feature2d组件
+第十章：角点检测（如果某一点在任意方向的一个微小的变动都会引起灰度很大的变化，那么我们就可以把该点看做是角点。）
+  Harris角点检测:cornerHarris()
+  Shi-Tomasi角点检测:goodFeaturesToTrack()
+  亚像素级角点检测:cornerSubPix()
+第十一章：特征检测与匹配
+  SURF(Speeded Up Robust Feature)特征点检测（视觉不变性 & 尺度不变性）
+  SURF特征提取
+  使用FLANN进行特征点匹配
+  寻找已知物体
+  ORB特征提取
+  
+  
+目标跟踪的八种工具包括：
+BOOSTING Tracker：和Haar cascades（AdaBoost）背后所用的机器学习算法相同，但是距其诞生已有十多年了。这一追踪器速度较慢，并且表现不好，但是作为元老还是有必要提及的。（最低支持OpenCV 3.0.0）
+MIL Tracker：比上一个追踪器更精确，但是失败率比较高。（最低支持OpenCV 3.0.0）
+KCF Tracker：比BOOSTING和MIL都快，但是在有遮挡的情况下表现不佳。（最低支持OpenCV 3.1.0）
+CSRT Tracker：比KCF稍精确，但速度不如后者。（最低支持OpenCV 3.4.2）
+MedianFlow Tracker：在报错方面表现得很好，但是对于快速跳动或快速移动的物体，模型会失效。（最低支持OpenCV 3.0.0）
+TLD Tracker：我不确定是不是OpenCV和TLD有什么不兼容的问题，但是TLD的误报非常多，所以不推荐。（最低支持OpenCV 3.0.0）
+MOSSE Tracker：速度真心快，但是不如CSRT和KCF的准确率那么高，如果追求速度选它准没错。（最低支持OpenCV 3.4.1）
+GOTURN Tracker：这是OpenCV中唯一一深度学习为基础的目标检测器。它需要额外的模型才能运行，本文不详细讲解。（最低支持OpenCV 3.2.0）
+  
+  
