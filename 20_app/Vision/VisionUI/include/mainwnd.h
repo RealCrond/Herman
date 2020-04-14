@@ -1,24 +1,5 @@
 #pragma once
-#include "visionresourcedll.h"
-
-#define DUI_DECLARE_CUSTOM_MESSAGE_MAP() \
-	virtual LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-
-#define DUI_BEGIN_CUSTOM_MESSAGE_MAP(theClass)															\
-	LRESULT theClass::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled){		\
-		switch(uMsg){																						
-																										
-#define PMSG_FUN(uMsg,fun)				\
-		case uMsg:						\
-			fun(wParam, lParam, bHandled);\
-			break;
-
-#define DUI_END_CUSTOM_MESSAGE_MAP()	\
-			default:					\
-				break;					\
-		}								\
-		return 0;						\
-	}									
+#include "visionresourcedll.h"					
 
 class CMainwnd : public WindowImplBase
 {
