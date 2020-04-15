@@ -31,6 +31,7 @@ public:
 	DUI_DECLARE_MESSAGE_MAP()
 	void OnClose(TNotifyUI& msg);
 	void OnItemClick(TNotifyUI &msg);
+	void OnOptionSelectChange(TNotifyUI &msg);
 
 	//自定义消息及其响应函数
 	DUI_DECLARE_CUSTOM_MESSAGE_MAP()
@@ -56,6 +57,6 @@ private:
 	CListUI*        m_pList;
 	CTabLayoutUI*	m_pTabLayout;
 
-	CVirtualWndPage m_Page1;
-	CVirtualWndPage m_Page2;
+	CVirtualWndPage1 m_Page1;
+	CVirtualWndPage1 m_Page2;
 };

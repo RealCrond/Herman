@@ -9,7 +9,8 @@
 
 DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("closebtn"), OnClose)
-
+	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
 DUI_END_MESSAGE_MAP()
 
 
@@ -80,11 +81,22 @@ void CMainwnd::OnClose(TNotifyUI& msg)
 	PostQuitMessage(0);
 }
 
+void CMainwnd::OnOptionSelectChange(TNotifyUI &msg)
+{
+	//::MessageBox(NULL, _T("OnOptionSelectChange!"), _T("Duilib Demo"), MB_OK);
+	
+	m_pTabLayout->SelectItem(rand() % 3);
+}
+
+void CMainwnd::OnItemClick(TNotifyUI &msg)
+{
+	::MessageBox(NULL, _T("CMainwnd::OnItemClick!"), _T("Duilib Demo"), MB_OK);
+}
 
 /*******  自定义消息响应函数  ********/
 LRESULT	CMainwnd::OnTestInd(WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	::MessageBox(NULL, _T("alert!"), _T("Duilib Demo"), MB_OK);
-	//m_pTabLayout->SelectItem(1);
+	m_pTabLayout->SelectItem(2);
 	return 0;
 }

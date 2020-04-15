@@ -1,10 +1,10 @@
 
 #pragma once
 
-class CVirtualWndPage : public CNotifyPump
+class CVirtualWndPage1 : public CNotifyPump
 {
 public:
-	CVirtualWndPage();
+	CVirtualWndPage1();
 	void SetPaintMagager(CPaintManagerUI* pPaintMgr);
 
 	DUI_DECLARE_MESSAGE_MAP()

@@ -3,24 +3,24 @@
 #include "CVirtualWnd.h"
 
 //虚拟窗口为page1的List控件及其子控件，他们的消息处理都在这里
-DUI_BEGIN_MESSAGE_MAP(CVirtualWndPage, CNotifyPump)
+DUI_BEGIN_MESSAGE_MAP(CVirtualWndPage1, CNotifyPump)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_CLICK, OnClick)			//page1里的click消息会被拦截，mainwnd就收不到了
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK,_T("open"), OnClick)
 	//DUI_ON_MSGTYPE(DUI_MSGTYPE_SELECTCHANGED, OnSelectChanged)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)   //这个会拦截mainwnd的itemclick消息
 DUI_END_MESSAGE_MAP()
 
-CVirtualWndPage::CVirtualWndPage()
+CVirtualWndPage1::CVirtualWndPage1()
 {
 	m_pPaintManager = NULL;
 }
 
-void CVirtualWndPage::SetPaintMagager(CPaintManagerUI* pPaintMgr)
+void CVirtualWndPage1::SetPaintMagager(CPaintManagerUI* pPaintMgr)
 {
 	m_pPaintManager = pPaintMgr;
 }
 
-void CVirtualWndPage::OnClick(TNotifyUI& msg)
+void CVirtualWndPage1::OnClick(TNotifyUI& msg)
 {
 	if (msg.pSender->GetName() == _T("down_ico"))
 	{
@@ -105,12 +105,12 @@ void CVirtualWndPage::OnClick(TNotifyUI& msg)
 	}
 }
 
-void CVirtualWndPage::OnSelectChanged(TNotifyUI &msg)
+void CVirtualWndPage1::OnSelectChanged(TNotifyUI &msg)
 {
 
 }
 
-void CVirtualWndPage::OnItemClick(TNotifyUI &msg)
+void CVirtualWndPage1::OnItemClick(TNotifyUI &msg)
 {
 	::MessageBox(NULL, _T("OnItemClick!"), _T("Duilib Demo"), MB_OK);
 }

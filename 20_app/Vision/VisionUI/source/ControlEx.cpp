@@ -18,7 +18,6 @@ ComputerExamineUI::~ComputerExamineUI()
 
 }
 
-
 CListContainerElementEx::CListContainerElementEx() {
 	CDialogBuilder builder;
 	CContainerUI* pListContainerElementEx = static_cast<CContainerUI*>(builder.Create(_T("ListContainerElementEx.xml"), (UINT)0));
