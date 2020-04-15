@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window mininfo="460,50" name="ListContainerElementEx" >
+	<HorizontalLayout name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="3,5,3,5">
+		<Button name="down_ico" text="" tooltip="" float="false" bordersize="0" width="32" maxheight="26" bkcolor2="#FF757676" bordercolor="#FF000000" bkimage="downlist_app.png" normalimage="file='downlist_ok.png' dest='20,14,32,26'"  hotimage="file='downlist_pause.png' dest='15,9,32,26'"/>
+		<VerticalLayout>
+			<Label name="down_name" text="Download_0098_44.exe" textcolor="#FFAAAAAA" showhtml="true"></Label>
+			<Progress name="down_progress" float="false" foreimage="file='progress_fore.png'" min="0" max="100" value="100" maxheight="7" maxwidth="200"/>
+		</VerticalLayout>
+		<VerticalLayout width="80">
+			<Label name="down_size" align="right" text="2.04M " textcolor="#FFAAAAAA" showhtml="true"></Label>
+			<HorizontalLayout name="hlayout" >
+				<Button name="open" hotimage="file='image\sys_dlg_menu.png' source='26,0,52,17'" text="{b}打开{/b}" textcolor="#FFAAAAAA" showhtml="true"></Button>
+				<Button name="folder"  hotimage="file='image\sys_dlg_menu.png' source='26,0,52,17'" text="{b}文件夹{/b}" textcolor="#FFAAAAAA" showhtml="true"></Button>
+			</HorizontalLayout>
+		</VerticalLayout>
+	</HorizontalLayout>
+</Window>

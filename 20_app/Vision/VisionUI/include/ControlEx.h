@@ -8,3 +8,11 @@ public:
 	ComputerExamineUI();
 	virtual ~ComputerExamineUI();
 };
+
+
+class CListContainerElementEx : public CListContainerElementUI
+{
+public:
+	CListContainerElementEx();
+	virtual ~CListContainerElementEx();
+};
