@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/20_app/Vision/VisionSourceDll/prj_win32/res/skin/MAIN_WND——bak.xml
