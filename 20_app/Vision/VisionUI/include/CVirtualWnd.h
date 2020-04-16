@@ -12,6 +12,8 @@ public:
 	virtual void OnClick(TNotifyUI& msg);
 	virtual void OnSelectChanged(TNotifyUI &msg);
 	virtual void OnItemClick(TNotifyUI &msg);
+	virtual void OnItemDbClick(TNotifyUI &msg);
+
 private:
 	CPaintManagerUI* m_pPaintManager;
 	int index;

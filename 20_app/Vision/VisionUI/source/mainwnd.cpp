@@ -10,7 +10,7 @@
 DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("closebtn"), OnClose)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
-	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
+	//DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
 DUI_END_MESSAGE_MAP()
 
 
@@ -52,19 +52,21 @@ void CMainwnd::InitWindow()
 	m_pMaxBtn = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("maxbtn")));
 	m_pMinBtn = static_cast<CButtonUI*>(m_PaintManager.FindControl(_T("minbtn")));
 	m_pList = static_cast<CListUI*>(m_PaintManager.FindControl(_T("down_list_tab")));
+
+
+	CEditUI* pEdit = new CEditUI();
+	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("search")));
+	pEdit->SetToolTip(_T("请输入想要搜索的内容!"));
 	//ComputerExamineUI x;
 	//CListContainerElementEx ListElem;
 	int nWidth = 150;
 	int nHeight = 50;
 	CListContainerElementEx* pListElem = new CListContainerElementEx();
-	pListElem->SetBorderSize(2);
-	pListElem->SetBorderColor(0xFF00ff00);
-	pListElem->SetText(_T("1111"));
-	pListElem->SetToolTip(_T("22222"));
 	pListElem->SetMinWidth(nWidth);
 	pListElem->SetMinHeight(nHeight);
 	//pListElem->SetFixedWidth(nWidth);
 	//pListElem->SetFixedHeight(nHeight);
+	pListElem->Select(TRUE);
 	pListElem->SetName(_T("item1"));
 	pListElem->GetIndex();
 	pListElem->SetToolTip(_T("这是一条提示"));
@@ -73,18 +75,21 @@ void CMainwnd::InitWindow()
 	CListContainerElementEx* pListElem2 = new CListContainerElementEx();
 	pListElem2->SetMinWidth(nWidth);
 	pListElem2->SetMinHeight(nHeight);
+	pListElem2->Select(FALSE);
 	pListElem2->SetName(_T("item2"));
 	m_pList->Add(pListElem2);
 
 	CListContainerElementEx* pListElem3 = new CListContainerElementEx();
 	pListElem3->SetMinWidth(nWidth);
 	pListElem3->SetMinHeight(nHeight);
+	pListElem3->Select(TRUE);
 	pListElem3->SetName(_T("item3"));
 	m_pList->Add(pListElem3);
 
 	CListContainerElementEx* pListElem4 = new CListContainerElementEx();
 	pListElem4->SetMinWidth(nWidth);
 	pListElem4->SetMinHeight(nHeight);
+	pListElem4->Select(FALSE);
 	pListElem4->SetName(_T("item4"));
 	m_pList->Add(pListElem4);
 
@@ -92,16 +97,20 @@ void CMainwnd::InitWindow()
 	CListContainerElementEx* pListElem5 = new CListContainerElementEx();
 	pListElem5->SetMinWidth(nWidth);
 	pListElem5->SetMinHeight(nHeight);
+	pListElem5->Select(TRUE);
 	pListElem5->SetName(_T("item5"));
 	m_pList->Add(pListElem5);
 
-	
 	m_pTabLayout = static_cast<CTabLayoutUI*>(m_PaintManager.FindControl(_T("tab_main")));	
+
+	CEditUI* pEditAlias = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("alias")));
+	pEditAlias->SetText(_T("群名或别名(科达视讯产品线)dsfalsdj"));
 }
 
 /********  控件消息响应函数  *******/
 void CMainwnd::OnClose(TNotifyUI& msg)
 {
+	Close();
 	PostQuitMessage(0);
 }
 

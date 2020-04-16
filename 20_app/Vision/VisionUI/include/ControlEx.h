@@ -15,4 +15,6 @@ class CListContainerElementEx : public CListContainerElementUI
 public:
 	CListContainerElementEx();
 	virtual ~CListContainerElementEx();
+
+	void DoEvent(TEventUI& event);
 };

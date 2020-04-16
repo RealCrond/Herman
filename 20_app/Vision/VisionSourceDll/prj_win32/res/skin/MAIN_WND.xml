@@ -9,41 +9,67 @@
   <Default name="VScrollBar" value="button1normalimage=&quot;file='scrollbar.bmp' source='0,90,16,106' mask='#FFFF00FF'&quot; button1hotimage=&quot;file='scrollbar.bmp' source='18,90,34,106' mask='#FFFF00FF'&quot; button1pushedimage=&quot;file='scrollbar.bmp' source='36,90,52,106' mask='#FFFF00FF'&quot; button1disabledimage=&quot;file='scrollbar.bmp' source='54,90,70,106' mask='#FFFF00FF'&quot; button2normalimage=&quot;file='scrollbar.bmp' source='0,108,16,124' mask='#FFFF00FF'&quot; button2hotimage=&quot;file='scrollbar.bmp' source='18,108,34,124' mask='#FFFF00FF'&quot; button2pushedimage=&quot;file='scrollbar.bmp' source='36,108,52,124' mask='#FFFF00FF'&quot; button2disabledimage=&quot;file='scrollbar.bmp' source='54,108,70,124' mask='#FFFF00FF'&quot; thumbnormalimage=&quot;file='scrollbar.bmp' source='0,126,16,142' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbhotimage=&quot;file='scrollbar.bmp' source='18,126,34,142' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbpushedimage=&quot;file='scrollbar.bmp' source='36,126,52,142' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbdisabledimage=&quot;file='scrollbar.bmp' source='54,126,70,142' corner='2,2,2,2' mask='#FFFF00FF'&quot; railnormalimage=&quot;file='scrollbar.bmp' source='0,144,16,160' corner='2,2,2,2' mask='#FFFF00FF'&quot; railhotimage=&quot;file='scrollbar.bmp' source='18,144,34,160' corner='2,2,2,2' mask='#FFFF00FF'&quot; railpushedimage=&quot;file='scrollbar.bmp' source='36,144,52,160' corner='2,2,2,2' mask='#FFFF00FF'&quot; raildisabledimage=&quot;file='scrollbar.bmp' source='54,144,70,160' corner='2,2,2,2' mask='#FFFF00FF'&quot; bknormalimage=&quot;file='scrollbar.bmp' source='0,162,16,178' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkhotimage=&quot;file='scrollbar.bmp' source='18,162,34,178' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkpushedimage=&quot;file='scrollbar.bmp' source='36,162,52,178' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkdisabledimage=&quot;file='scrollbar.bmp' source='54,162,70,178' corner='2,2,2,2' mask='#FFFF00FF'&quot; " />
   <Default name="HScrollBar" value="button1normalimage=&quot;file='scrollbar.bmp' source='0,0,16,16' mask='#FFFF00FF'&quot; button1hotimage=&quot;file='scrollbar.bmp' source='18,0,34,16' mask='#FFFF00FF'&quot; button1pushedimage=&quot;file='scrollbar.bmp' source='36,0,52,16' mask='#FFFF00FF'&quot; button1disabledimage=&quot;file='scrollbar.bmp' source='54,0,70,16' mask='#FFFF00FF'&quot; button2normalimage=&quot;file='scrollbar.bmp' source='0,18,16,34' mask='#FFFF00FF'&quot; button2hotimage=&quot;file='scrollbar.bmp' source='18,18,34,34' mask='#FFFF00FF'&quot; button2pushedimage=&quot;file='scrollbar.bmp' source='36,18,52,34' mask='#FFFF00FF'&quot; button2disabledimage=&quot;file='scrollbar.bmp' source='54,18,70,34' mask='#FFFF00FF'&quot; thumbnormalimage=&quot;file='scrollbar.bmp' source='0,36,16,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbhotimage=&quot;file='scrollbar.bmp' source='18,36,34,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbpushedimage=&quot;file='scrollbar.bmp' source='36,36,52,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbdisabledimage=&quot;file='scrollbar.bmp' source='54,36,70,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; railnormalimage=&quot;file='scrollbar.bmp' source='0,54,16,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; railhotimage=&quot;file='scrollbar.bmp' source='18,54,34,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; railpushedimage=&quot;file='scrollbar.bmp' source='36,54,52,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; raildisabledimage=&quot;file='scrollbar.bmp' source='54,54,70,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; bknormalimage=&quot;file='scrollbar.bmp' source='0,72,16,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkhotimage=&quot;file='scrollbar.bmp' source='18,72,34,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkpushedimage=&quot;file='scrollbar.bmp' source='36,72,52,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkdisabledimage=&quot;file='scrollbar.bmp' source='54,72,70,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; " />
   <HorizontalLayout bordercolor="#FF768D9B" bordersize="2" borderround="5,5" inset="1,0,1,0">
-	<VerticalLayout name="leftlayout" width="50" bkcolor="#FFFFFFFF" >
-        <Button name="profilephoto" text="" width="50" height="50" bkimage="file='image\icon.png' source='0,0,16,16' dest='5,4,21,20' " />
-		<Option name="chats" 		text="chats"  		width="50" height="50" />
-		<Option name="contacts" 	text="contacts" 	width="50" height="50" />
-		<Option name="favorites" 	text="favorites" 	width="50" height="50" />
+	<VerticalLayout name="leftlayout" width="50" bkcolor="#FF366CB3" >
+        <Button name="profilephoto" text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" bkimage="file='image\profile.png' source='0,0,84,84' dest='5,5,45,45' " />
+		<Option name="chats" 		text=""  	width="50" height="50" normalimage="file='image\number\电话光标输入.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\电话-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Option name="contacts" 	text="" 	width="50" height="50" normalimage="file='image\number\0.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\0-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Option name="favorites" 	text="" 	width="50" height="50" normalimage="file='image\number\1.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\1-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Button name="file" 		text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\2.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\2-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+		<Button name="sth" 			text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\3.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\3-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+		<Control />
+		<VerticalLayout height="100" bordersize="0" bordercolor="#FFff0000" >
+			<Button name="backup" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\4.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\4-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+			<Button name="setting"	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\5.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\5-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+		</VerticalLayout>
     </VerticalLayout>
-	<VerticalLayout width="220" bkcolor="#FFFFFFFF" >
+	<VerticalLayout width="240" bkcolor="#FFE6E8EB" >
 		<!--<ComputerExamine />-->
-		<HorizontalLayout width="220" height="60" >
-			<Edit name="search" width="160" height="60" bordersize="2" bordercolor="#FFFF0000" />
-			<Button name="add" width="60" bordersize="2" bordercolor="#FF0000FF" />
+		<Control height="30" />
+		<HorizontalLayout width="240" height="30" >
+			<Control width="10" />
+			<Edit 	name="search" text="搜索" tooltip="请输入想要搜索的内容!"	minwidth="180"  bordersize="1" borderround="8,8" bordercolor="#FFC0C0C0" />
+			<HorizontalLayout>
+				<Control width="10" />
+				<Button name="add" tooltip="添加" width="30" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' " hotimage="file='image\number\新建联系人-hover.png' source='0,0,54,54' dest='0,0,50,50' "  pushedimage="file='image\number\新建联系人-down.png' source='0,0,54,54' dest='0,0,50,50' " />
+			</HorizontalLayout>
 		</HorizontalLayout>
-		<List name="chatlist" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="1" bkcolor="#FF00F0FE" bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
-		</List>
+		<VerticalLayout bordersize="1" bordercolor="#FF0000FF" >
+			<List name="chatlist" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="1" bordercolor="#FFFF0000" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
+			</List>
+			<Control />
+		</VerticalLayout>
 	</VerticalLayout>
-    <VerticalLayout  name="detail" bkcolor="#FFFFFFFF" >
-		<HorizontalLayout height="50" inset="0,1,0,0" bordersize="1" bordercolor="#FFFF0000" >
+    <VerticalLayout  name="detail" bkcolor="#FFF2F3F5" >
+		<HorizontalLayout height="25" inset="0,1,0,0" >
 			<!--
 			<Button text="{u}{a}求助{/a}{/u}" showhtml="true"/>
 			<Button text="{u}{a}论坛{/a}{/u}" showhtml="true"/>
 			-->
 			<Control />
 			<HorizontalLayout width="122" >
-				<Button name="menubtn" maxwidth="26" maxheight="17" normalimage="file='image\sys_dlg_menu.png' source='52,0,78,17'" hotimage="file='image\sys_dlg_menu.png' source='26,0,52,17'" pushedimage="file='image\sys_dlg_menu.png' source='0,0,26,17'"/>
-				<Button name="minbtn" maxwidth="26" maxheight="17" normalimage="file='image\sys_dlg_min.png' source='52,0,78,17'" hotimage="file='image\sys_dlg_min.png' source='26,0,52,17'" pushedimage="file='image\sys_dlg_min.png' source='0,0,26,17'"/>
-				<Button name="maxbtn" maxwidth="26" maxheight="17" normalimage="file='image\sys_dlg_max.png' source='52,0,78,17'" hotimage="file='image\sys_dlg_max.png' source='26,0,52,18'" pushedimage="file='image\sys_dlg_max.png' source='0,0,26,17'"/>
-				<Button name="restorebtn" visible="false" maxwidth="26" maxheight="17" normalimage="file='image\sys_dlg_restore.png' source='52,0,78,17'" hotimage="file='image\sys_dlg_restore.png' source='26,0,52,17'" pushedimage="file='image\sys_dlg_restore.png' source='0,0,26,17'" />
-				<Button name="closebtn" maxwidth="45" maxheight="17" normalimage="file='image\sys_dlg_close.png' source='90,0,135,17'" hotimage="file='image\sys_dlg_close.png' source='45,0,90,17'" pushedimage="file='image\sys_dlg_close.png' source='0,0,45,17'"/>
+				<Button name="menubtn" 						maxwidth="30" maxheight="30" normalimage="file='image\button_drop.png' source='102,0,136,29' dest='0,0,30,30'" 	hotimage="file='image\button_drop.png' source='34,0,68,29' dest='0,0,30,30' " 	pushedimage="file='image\button_drop.png' source='68,0,102,29' dest='0,0,30,30'"/>
+				<Button name="minbtn" 						maxwidth="30" maxheight="30" normalimage="file='image\button_min.png' source='72,0,96,24' dest='0,0,30,30' " 		hotimage="file='image\button_min.png' source='24,0,48,24' dest='0,0,30,30' " 		pushedimage="file='image\button_min.png' source='72,0,96,24' dest='0,0,30,30'"/>
+				<Button name="maxbtn" 						maxwidth="30" maxheight="30" normalimage="file='image\button_max.png' source='72,0,96,24' dest='0,0,30,30'" 	hotimage="file='image\button_max.png' source='24,0,48,24' dest='0,0,30,30'" 	pushedimage="file='image\button_max.png' source='72,0,96,24' dest='0,0,30,30'"/>
+				<Button name="restorebtn"  visible="false"  maxwidth="30" maxheight="30" normalimage="file='image\button_restore.png' source='72,0,96,24' dest='0,0,30,30'" hotimage="file='image\sys_dlg_restore.png' source='24,0,48,24' dest='0,0,30,30'" pushedimage="file='image\sys_dlg_restore.png' source='72,0,96,24' dest='0,0,30,30'" />
+				<Button name="closebtn" 					maxwidth="30" maxheight="30" normalimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30' " 	hotimage="file='image\button_close.png' source='24,0,48,24' dest='0,0,30,30'" 	pushedimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30'"/>
 			</HorizontalLayout>
 		</HorizontalLayout>
 		<HorizontalLayout visible="true" name="body">
 			<TabLayout name="tab_main" text="" tooltip="" float="false" bordersize="1" bordercolor="#FF07676">
-				<!-- Page 1-->
-				<List virtualwnd="page1" name="down_list_tab" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="1" bkcolor="#FFE0F0FE" bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
-				</List>
+				<VerticalLayout>
+					<HorizontalLayout height="35" inset="0,1,0,0">
+						<HorizontalLayout>
+							<Edit 	name="alias" 		text="群名或别名(科达视讯产品线)" enabled="false" bordersize="1" bordercolor="#FF00FFF0" disabledtextcolor="#FF000000" bkcolor="#FFF2F3F5" /> 
+							<Label 	name="status" 		text="状态"  />
+							<Button name="email" 		text="liuhuan@kedacom.com" />
+							<Label 	name="seprate" 		text="|" 	maxwidth="5" />
+							<Button name="department" 	text="部门" textpadding="0,0,0,0" />
+						</HorizontalLayout>
+						<Control />
+					</HorizontalLayout>
+					<List virtualwnd="page1" name="down_list_tab" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'"> -->
+					</List>  <!-- Page 1-->
+				</VerticalLayout>
 				<!-- Page 2-->
 				<HorizontalLayout  virtualwnd="page2" name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="3,5,3,5">
 					<Button name="" text="" tooltip="" float="false" bordersize="0" width="32" maxheight="26" bkcolor2="#FF757676" bordercolor="#FF000000" bkimage="downlist_app.png" normalimage="file='downlist_pause.png' dest='20,14,32,26'" />

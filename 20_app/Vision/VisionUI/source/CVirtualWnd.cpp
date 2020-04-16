@@ -9,6 +9,7 @@ DUI_BEGIN_MESSAGE_MAP(CVirtualWndPage1, CNotifyPump)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("folder"), OnClick)
 	//DUI_ON_MSGTYPE(DUI_MSGTYPE_SELECTCHANGED, OnSelectChanged)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)   //这个会拦截mainwnd的itemclick消息
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMDBCLICK, OnItemDbClick)   //这个会拦截mainwnd的itemclick消息
 DUI_END_MESSAGE_MAP()
 
 CVirtualWndPage1::CVirtualWndPage1()
@@ -121,4 +122,10 @@ void CVirtualWndPage1::OnSelectChanged(TNotifyUI &msg)
 void CVirtualWndPage1::OnItemClick(TNotifyUI &msg)
 {
 	::MessageBox(NULL, _T("OnItemClick!"), _T("Duilib Demo"), MB_OK);
+}
+
+void CVirtualWndPage1::OnItemDbClick(TNotifyUI &msg)
+{
+	::MessageBox(NULL, _T("OnItemDbClick!"), _T("Duilib Demo"), MB_OK);
+	return;
 }
