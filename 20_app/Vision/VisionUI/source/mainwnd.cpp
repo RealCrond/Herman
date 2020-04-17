@@ -104,7 +104,21 @@ void CMainwnd::InitWindow()
 	m_pTabLayout = static_cast<CTabLayoutUI*>(m_PaintManager.FindControl(_T("tab_main")));	
 
 	CEditUI* pEditAlias = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("alias")));
-	pEditAlias->SetText(_T("群名或别名(科达视讯产品线)dsfalsdj"));
+	pEditAlias->SetText(_T("群名或别名-视讯产品线"));
+	pEditAlias->SetAutoSelAll(true);
+	pEditAlias->SetAttribute(_T("font"), _T("3"));
+	pEditAlias->SetAttribute(_T("enabled"), _T("true"));
+	pEditAlias->SetAttribute(_T("align"), _T("center"));
+	//pEditAlias->SetAttribute(_T("textpadding"), _T("15,0,15,0"));
+	pEditAlias->SetFixedWidth(pEditAlias->GetText().GetLength() * 18);
+
+	CLabelUI* plabelEmail = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("email")));
+	plabelEmail->SetText(_T("liuhuan@kedacom.com"));
+	plabelEmail->SetFixedWidth(plabelEmail->GetText().GetLength() * 7);
+
+	CLabelUI* plabelDep = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("department")));
+	plabelDep->SetFixedWidth(plabelDep->GetText().GetLength() * 18);
+
 }
 
 /********  控件消息响应函数  *******/

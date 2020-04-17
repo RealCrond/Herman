@@ -33,10 +33,9 @@
 				<Button name="add" tooltip="添加" width="30" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' " hotimage="file='image\number\新建联系人-hover.png' source='0,0,54,54' dest='0,0,50,50' "  pushedimage="file='image\number\新建联系人-down.png' source='0,0,54,54' dest='0,0,50,50' " />
 			</HorizontalLayout>
 		</HorizontalLayout>
-		<VerticalLayout bordersize="1" bordercolor="#FF0000FF" >
+		<VerticalLayout bordersize="0" bordercolor="#FF0000FF" >
 			<List name="chatlist" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="1" bordercolor="#FFFF0000" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
 			</List>
-			<Control />
 		</VerticalLayout>
 	</VerticalLayout>
     <VerticalLayout  name="detail" bkcolor="#FFF2F3F5" >
@@ -54,39 +53,43 @@
 				<Button name="closebtn" 					maxwidth="30" maxheight="30" normalimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30' " 	hotimage="file='image\button_close.png' source='24,0,48,24' dest='0,0,30,30'" 	pushedimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30'"/>
 			</HorizontalLayout>
 		</HorizontalLayout>
-		<HorizontalLayout visible="true" name="body">
-			<TabLayout name="tab_main" text="" tooltip="" float="false" bordersize="1" bordercolor="#FF07676">
-				<VerticalLayout>
-					<HorizontalLayout height="35" inset="0,1,0,0">
-						<HorizontalLayout>
-							<Edit 	name="alias" 		text="群名或别名(科达视讯产品线)" enabled="false" bordersize="1" bordercolor="#FF00FFF0" disabledtextcolor="#FF000000" bkcolor="#FFF2F3F5" /> 
-							<Label 	name="status" 		text="状态"  />
-							<Button name="email" 		text="liuhuan@kedacom.com" />
-							<Label 	name="seprate" 		text="|" 	maxwidth="5" />
-							<Button name="department" 	text="部门" textpadding="0,0,0,0" />
-						</HorizontalLayout>
-						<Control />
-					</HorizontalLayout>
-					<List virtualwnd="page1" name="down_list_tab" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'"> -->
-					</List>  <!-- Page 1-->
-				</VerticalLayout>
-				<!-- Page 2-->
-				<HorizontalLayout  virtualwnd="page2" name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="3,5,3,5">
-					<Button name="" text="" tooltip="" float="false" bordersize="0" width="32" maxheight="26" bkcolor2="#FF757676" bordercolor="#FF000000" bkimage="downlist_app.png" normalimage="file='downlist_pause.png' dest='20,14,32,26'" />
+		<VerticalLayout visible="true" name="body">
+			<VerticalLayout sepheight="5" sepimm="true" >
+				<TabLayout name="tab_main" text="" tooltip="" float="false" bordersize="0" bordercolor="#FF07676">
 					<VerticalLayout>
-						<Label text="stphone_v1.5b_build110211.exe" textcolor="#FFAAAAAA" showhtml="true"></Label>
-						<Progress float="false" foreimage="file='progress_fore.png'" min="0" max="100" value="20" maxheight="7" maxwidth="200"/>
+						<HorizontalLayout height="35" inset="0,1,0,0">
+							<Edit 	name="alias" 		text="群名或别名(科达视讯产品线)" enabled="false" bordersize="0" bordercolor="#FF00FFF0" disabledtextcolor="#FF000000" bkcolor="#FFF2F3F5" /> 
+							<Label 	name="status" 		text="状态" width="35" bordersize="0" bordercolor="#FF000000" />
+							<Button name="email" 		text="liuhuan@kedacom.com" bordersize="0" bordercolor="#FF00FFFF" />
+							<Label 	name="seprate" 		text="|" width="5" bordersize="0" bordercolor="#FF000000" />
+							<Button name="department" 	text="部门" bordersize="0" bordercolor="#FFFF0FFF" />
+							<Control bordersize="0" bordercolor="#FF000000" />
+						</HorizontalLayout>
+						<List virtualwnd="page1" name="down_list_tab" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'"> -->
+						</List>  <!-- Page 1-->
 					</VerticalLayout>
-					<VerticalLayout width="80">
-						<Label align="right" text="" textcolor="#FFAAAAAA" showhtml="true"></Label>
-						<Label text="37.4K/4.06M" textcolor="#FFAAAAAA" showhtml="true"></Label>
-					</VerticalLayout>
-				</HorizontalLayout>
-				<!-- Page 3-->
-				<ComputerExamine />
-				<!-- Page 4.....-->
-			</TabLayout>
-		</HorizontalLayout>
+					<!-- Page 2-->
+					<HorizontalLayout  virtualwnd="page2" name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="3,5,3,5">
+						<Button name="" text="" tooltip="" float="false" bordersize="0" width="32" maxheight="26" bkcolor2="#FF757676" bordercolor="#FF000000" bkimage="downlist_app.png" normalimage="file='downlist_pause.png' dest='20,14,32,26'" />
+						<VerticalLayout>
+							<Label text="stphone_v1.5b_build110211.exe" textcolor="#FFAAAAAA" showhtml="true"></Label>
+							<Progress float="false" foreimage="file='progress_fore.png'" min="0" max="100" value="20" maxheight="7" maxwidth="200"/>
+						</VerticalLayout>
+						<VerticalLayout width="80">
+							<Label align="right" text="" textcolor="#FFAAAAAA" showhtml="true"></Label>
+							<Label text="37.4K/4.06M" textcolor="#FFAAAAAA" showhtml="true"></Label>
+						</VerticalLayout>
+					</HorizontalLayout>
+					<!-- Page 3-->
+					<ComputerExamine />
+					<!-- Page 4.....-->
+				</TabLayout>
+				<Label height="5" bkcolor="#FF000000" />
+			</VerticalLayout>
+			<VerticalLayout>
+				<RichEdit name="messageinput" inset="5,5,5,5" height="180" bkcolor="#FFFFFFFF" bordersize="0" bordercolor="#FF0000FF" />
+			</VerticalLayout>
+		</VerticalLayout>
     </VerticalLayout>
    </HorizontalLayout>
 </Window>
