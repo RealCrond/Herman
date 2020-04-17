@@ -54,8 +54,7 @@ void CMainwnd::InitWindow()
 	m_pList = static_cast<CListUI*>(m_PaintManager.FindControl(_T("down_list_tab")));
 
 
-	CEditUI* pEdit = new CEditUI();
-	pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("search")));
+	CEditUI* pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("search")));
 	pEdit->SetToolTip(_T("请输入想要搜索的内容!"));
 	//ComputerExamineUI x;
 	//CListContainerElementEx ListElem;
@@ -107,10 +106,26 @@ void CMainwnd::InitWindow()
 	pEditAlias->SetText(_T("群名或别名-视讯产品线"));
 	pEditAlias->SetAutoSelAll(true);
 	pEditAlias->SetAttribute(_T("font"), _T("3"));
-	pEditAlias->SetAttribute(_T("enabled"), _T("true"));
+	pEditAlias->SetAttribute(_T("enabled"), _T("false"));
 	pEditAlias->SetAttribute(_T("align"), _T("center"));
 	//pEditAlias->SetAttribute(_T("textpadding"), _T("15,0,15,0"));
 	pEditAlias->SetFixedWidth(pEditAlias->GetText().GetLength() * 18);
+
+	CListUI* pListChat = static_cast<CListUI*>(m_PaintManager.FindControl(_T("chatlist")));
+	for (size_t i = 0; i < 20; i++)
+	{
+		CListContainerElementEx* pListChatElem1 = new CListContainerElementEx();
+		pListChatElem1->SetMinWidth(nWidth);
+		pListChatElem1->SetMinHeight(nHeight);
+		//pListElem->SetFixedWidth(nWidth);
+		//pListElem->SetFixedHeight(nHeight);
+		CDuiString name;
+		name.Format(_T("chatlistitem%d"), i + 1);
+		pListChatElem1->Select( i%2 );
+		pListChatElem1->SetName( name );
+		pListChatElem1->SetToolTip(_T("这是一条提示"));
+		pListChat->Add(pListChatElem1);
+	}
 
 	CLabelUI* plabelEmail = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("email")));
 	plabelEmail->SetText(_T("liuhuan@kedacom.com"));
