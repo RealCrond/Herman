@@ -56,8 +56,9 @@
 		<VerticalLayout visible="true" name="body">
 			<VerticalLayout >
 				<TabLayout name="tab_main" text="" tooltip="" float="false" bordersize="0" bordercolor="#FF07676">
-					<VerticalLayout>
-						<VerticalLayout>
+					<!-- Page 1-->
+					<VerticalLayout virtualwnd="page1">
+						<VerticalLayout minheight="200" >
 							<HorizontalLayout height="35" inset="0,1,0,0">
 								<Edit 	name="alias" 		text="群名或别名(科达视讯产品线)" enabled="false" bordersize="0" bordercolor="#FF00FFF0" disabledtextcolor="#FF000000" bkcolor="#FFF2F3F5" /> 
 								<Label 	name="status" 		text="" width="35" bkimage="file='image\number\井号-hover.png' source='0,0,104,104' dest='5,5,30,30' " bordersize="0" bordercolor="#FF000000" />
@@ -66,13 +67,18 @@
 								<Button name="department" 	text="部门" bordersize="0" bordercolor="#FFFF0FFF" />
 								<Control bordersize="0" bordercolor="#FF000000" />
 							</HorizontalLayout>
-							<List virtualwnd="page1" name="down_list_tab" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'"> -->
-							</List>  <!-- Page 1-->
+							<List name="message_list" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'">  itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF"-->
+							</List>  
 						</VerticalLayout>
-						<VerticalLayout height="180" sepheight="-4" sepimm="true">
-							<Label height="4" bkcolor="#FFC0C0C0" borderround="5,5" />
-							<RichEdit name="messageinput" text="Input your messages:" inset="5,5,5,5"  bkcolor="#FFFFFFFF" bordersize="0" bordercolor="#FF0000FF" />
+						<VerticalLayout height="180" sepheight="-15" sepimm="true">
+							<Label height="1" bkcolor="#FFC0C0C0" borderround="5,5" />
+							<Button height="5" bkcolor="#FFFFFFFF" mouse="false" />
+							<RichEdit name="messageinput" text="Input your messages:" inset="5,0,5,5"  wantreturn="true" bkcolor="#FFFFFFFF" bordersize="0" bordercolor="#FF0000FF" />
 						</VerticalLayout>
+						<HorizontalLayout height="30" bkcolor="#FFFFFFFF" inset="0,0,15,10" >
+							<Control />
+							<Button name="send" text="发送({u}S{/u})" textcolor="#FF000000" hottextcolor="#FF000000" hottextcolor="#FFFF0000" borderround="10,10" showhtml="true" width="50" height="20"  />
+						</HorizontalLayout>
 					</VerticalLayout>
 					<!-- Page 2-->
 					<HorizontalLayout  virtualwnd="page2" name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="3,5,3,5">

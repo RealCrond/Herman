@@ -18,3 +18,15 @@ public:
 
 	void DoEvent(TEventUI& event);
 };
+
+class CListContainerElementContact : public CListContainerElementUI
+{
+public:
+	CListContainerElementContact();
+	virtual ~CListContainerElementContact();
+
+	void InitContainer(CDuiString name/* = _T("Herman")*/, CDuiString mesg /*=_T("message")*/, CDuiString time /*=_T("time")*/);
+
+private:
+	CContainerUI* m_pListContainerElementContct;
+};

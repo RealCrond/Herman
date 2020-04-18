@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Window mininfo="460,50" name="ListContainerElementContact" >
+	<HorizontalLayout name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="5,12,5,5">
+		<HorizontalLayout width="40" widht="40">
+			<Label nmae="profileimage" text="icon" align="center" bkcolor="#FFFFFFFF" width="40" height="40" borderround="10,10" />
+		</HorizontalLayout>
+		<VerticalLayout>
+			<Label name="alias" text="alias" align="left" />
+			<HorizontalLayout>
+				<Label name="message" text="message"  align="left" endellipsis="true" />
+				<Label name="time" text="time"  width="35" align="right" endellipsis="true" />
+			</HorizontalLayout>
+		</VerticalLayout>
+	</HorizontalLayout>
+</Window>

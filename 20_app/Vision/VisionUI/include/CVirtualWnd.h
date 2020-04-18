@@ -9,10 +9,11 @@ public:
 
 	DUI_DECLARE_MESSAGE_MAP()
 	
-	virtual void OnClick(TNotifyUI& msg);
-	virtual void OnSelectChanged(TNotifyUI &msg);
-	virtual void OnItemClick(TNotifyUI &msg);
-	virtual void OnItemDbClick(TNotifyUI &msg);
+	void OnClick(TNotifyUI& msg);
+	void OnSelectChanged(TNotifyUI &msg);
+	void OnItemClick(TNotifyUI &msg);
+	void OnItemDbClick(TNotifyUI &msg);
+	void OnSendMessage(TNotifyUI &msg);
 
 private:
 	CPaintManagerUI* m_pPaintManager;

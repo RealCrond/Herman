@@ -117,3 +117,30 @@ void CListContainerElementEx::DoEvent(TEventUI& event)
 	// in its path to the item, but key-presses etc. needs to go to the actual list.
 	if (m_pOwner != NULL) m_pOwner->DoEvent(event); else CControlUI::DoEvent(event);
 }
+
+CListContainerElementContact::CListContainerElementContact()
+{
+	CDialogBuilder builder;
+	m_pListContainerElementContct = static_cast<CContainerUI*>(builder.Create(_T("ListContainerElementContact.xml"), (UINT)0));
+	if (m_pListContainerElementContct) {
+		this->Add(m_pListContainerElementContct);
+	}
+	else {
+		this->RemoveAll();
+		return;
+	}
+
+	//m_pListContainerElementContct
+}
+
+CListContainerElementContact::~CListContainerElementContact()
+{
+
+}
+
+void CListContainerElementContact::InitContainer(CDuiString name = _T("Herman"), CDuiString mesg =_T("message"), CDuiString time =_T("time"))
+{
+	static_cast<CLabelUI*>(m_pListContainerElementContct->FindSubControl(_T("alias")))->SetText(name);
+	static_cast<CLabelUI*>(m_pListContainerElementContct->FindSubControl(_T("message")))->SetText(mesg);
+	static_cast<CLabelUI*>(m_pListContainerElementContct->FindSubControl(_T("time")))->SetText(time);
+}
