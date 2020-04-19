@@ -8,6 +8,7 @@ DUI_BEGIN_MESSAGE_MAP(CVirtualWndPage1, CNotifyPump)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK,_T("open"), OnClick)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("folder"), OnClick)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_RETURN, _T("messageinput"), OnSendMessage)
+	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK,_T("send"),OnSend)
 	//DUI_ON_MSGTYPE(DUI_MSGTYPE_SELECTCHANGED, OnSelectChanged)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_RETURN, OnSendMessage)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)   //这个会拦截mainwnd的itemclick消息
@@ -16,7 +17,6 @@ DUI_END_MESSAGE_MAP()
 
 CVirtualWndPage1::CVirtualWndPage1()
 {
-	m_pPaintManager = NULL;
 }
 
 void CVirtualWndPage1::SetPaintMagager(CPaintManagerUI* pPaintMgr)
@@ -135,5 +135,65 @@ void CVirtualWndPage1::OnItemDbClick(TNotifyUI &msg)
 void CVirtualWndPage1::OnSendMessage(TNotifyUI &msg)
 {
 	::MessageBox(NULL, _T("Send Message!"), _T("Duilib Demo"), MB_OK);
+	return;
+}
+
+void CVirtualWndPage1::OnSend(TNotifyUI &msg)
+{
+
+	CListUI* pList = static_cast<CListUI*>(m_pPaintManager->FindControl(_T("message_list")));
+
+	int nWidth = 150;
+	int nHeight = 50;
+	SIZE borderround;
+	borderround.cx = 5;
+	borderround.cy = 5;
+	CLabelUI* pFriendProfile = new CLabelUI();
+	pFriendProfile->SetFixedWidth(50);
+	pFriendProfile->SetFixedHeight(50);
+	pFriendProfile->SetBorderRound(borderround);
+	pFriendProfile->SetAttribute(_T("align"), _T("center"));
+	pFriendProfile->SetAttribute(_T(""), _T(""));    //筛选-hover.png 54*54 normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' "
+	pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\筛选-hover.png' source='0,0,54,54' dest='5,5,45,45' "));
+	CVerticalLayoutUI* pMessageLayout = new CVerticalLayoutUI();
+	CLabelUI* pMessage = new CLabelUI();
+	CRichEditUI* pEdit = static_cast<CRichEditUI*>(m_pPaintManager->FindControl(_T("messageinput")));
+	pMessage->SetText(pEdit->GetText());
+	pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
+	pMessage->SetFixedHeight(30);
+	pMessage->SetAttribute(_T("bordersize"), _T("1"));
+	pMessage->SetBkColor(0xFFCCE4FC);
+	pMessage->SetBorderRound(borderround);
+	pMessage->SetAttribute(_T("align"), _T("right"));
+	CControlUI* pCtrlUITop = new CControlUI();
+	pMessageLayout->Add(pCtrlUITop);
+	pMessageLayout->Add(pMessage);
+	CControlUI* pCtrlUIBot = new CControlUI();
+	pMessageLayout->Add(pCtrlUIBot);
+	//pMessageLayout->SetBkColor(0xFFFF0000);
+	pMessageLayout->SetFixedWidth(pMessage->GetFixedWidth());
+	CHorizontalLayoutUI* pHLayout = new CHorizontalLayoutUI();
+	pHLayout->SetMinWidth(nWidth);
+	pHLayout->SetMinHeight(nHeight);
+
+	CControlUI* pCtrlUI = new CControlUI();
+	pHLayout->Add(pCtrlUI);
+	pHLayout->Add(pMessageLayout);
+	pHLayout->Add(pFriendProfile);
+
+	CListContainerElementUI* pListItem = new CListContainerElementUI();
+	pListItem->SetMinWidth(nWidth);
+	pListItem->SetMinHeight(nHeight);
+	pListItem->Add(pHLayout);
+	pListItem->SetEnabled(FALSE);
+	pListItem->SetBkColor(0xFFF2F3F5);
+	pList->Add(pListItem);
+	//::MessageBox(NULL, _T("Send!"), _T("Duilib Demo"), MB_OK);
+	pList->EndDown();
+
+	//SIZE szScrollRange = pList->GetScrollRange();
+	//SIZE szScrollPos = pList->GetScrollPos();
+	//szScrollPos.cy = szScrollRange.cy;
+	//pList->SetScrollPos(szScrollPos);
 	return;
 }

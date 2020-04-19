@@ -10,35 +10,61 @@
   <Default name="HScrollBar" value="button1normalimage=&quot;file='image\scrollbar.bmp' source='0,0,16,16' mask='#FFFF00FF'&quot; button1hotimage=&quot;file='image\scrollbar.bmp' source='18,0,34,16' mask='#FFFF00FF'&quot; button1pushedimage=&quot;file='image\scrollbar.bmp' source='36,0,52,16' mask='#FFFF00FF'&quot; button1disabledimage=&quot;file='image\scrollbar.bmp' source='54,0,70,16' mask='#FFFF00FF'&quot; button2normalimage=&quot;file='image\scrollbar.bmp' source='0,18,16,34' mask='#FFFF00FF'&quot; button2hotimage=&quot;file='image\scrollbar.bmp' source='18,18,34,34' mask='#FFFF00FF'&quot; button2pushedimage=&quot;file='image\scrollbar.bmp' source='36,18,52,34' mask='#FFFF00FF'&quot; button2disabledimage=&quot;file='image\scrollbar.bmp' source='54,18,70,34' mask='#FFFF00FF'&quot; thumbnormalimage=&quot;file='image\scrollbar.bmp' source='0,36,16,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbhotimage=&quot;file='image\scrollbar.bmp' source='18,36,34,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbpushedimage=&quot;file='image\scrollbar.bmp' source='36,36,52,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; thumbdisabledimage=&quot;file='image\scrollbar.bmp' source='54,36,70,52' corner='2,2,2,2' mask='#FFFF00FF'&quot; railnormalimage=&quot;file='image\scrollbar.bmp' source='0,54,16,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; railhotimage=&quot;file='image\scrollbar.bmp' source='18,54,34,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; railpushedimage=&quot;file='image\scrollbar.bmp' source='36,54,52,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; raildisabledimage=&quot;file='scrollbar.bmp' source='54,54,70,70' corner='2,2,2,2' mask='#FFFF00FF'&quot; bknormalimage=&quot;file='scrollbar.bmp' source='0,72,16,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkhotimage=&quot;file='image\scrollbar.bmp' source='18,72,34,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkpushedimage=&quot;file='image\scrollbar.bmp' source='36,72,52,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; bkdisabledimage=&quot;file='image\scrollbar.bmp' source='54,72,70,88' corner='2,2,2,2' mask='#FFFF00FF'&quot; " />
   <HorizontalLayout bkcolor="#FF0000FF" bordercolor="#FF768D9B" bordersize="2" borderround="5,5" inset="0,0,0,0">
 	<VerticalLayout name="leftlayout" width="50" bkcolor="#FF366CB3" >
-		<Button name="profilephoto" text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" bkimage="file='image\profile.png' source='0,0,84,84' dest='5,5,45,45' " />
-		<Option name="chats" 		text=""  	width="50" height="50" normalimage="file='image\number\电话光标输入.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\电话-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
-		<Option name="contacts" 	text="" 	width="50" height="50" normalimage="file='image\number\0.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\0-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
-		<Option name="favorites" 	text="" 	width="50" height="50" normalimage="file='image\number\1.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\1-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
-		<Button name="file" 		text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\2.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\2-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
-		<Button name="sth" 			text="" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\3.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\3-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+		<Control height="15" />
+		<Button name="profilephoto" text="" tooltip="头像" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" bkimage="file='image\profile.png' source='0,0,84,84' dest='5,5,45,45' " />
+		<Option name="chats" 		text="" tooltip="聊天"  	width="50" height="50" normalimage="file='image\number\电话光标输入.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\电话-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Option name="contacts" 	text="" tooltip="通讯录" 	width="50" height="50" normalimage="file='image\number\0.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\0-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Option name="favorites" 	text="" tooltip="收藏" 	width="50" height="50" normalimage="file='image\number\1.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\1-hover.png' source='0,0,104,104' dest='5,5,45,45' " />
+		<Button name="file" 		text="" tooltip="微信文件" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\2.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\2-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+		<Button name="sth" 			text="" tooltip="看一看" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\3.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\3-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
 		<Control />
 		<VerticalLayout height="100" bordersize="0" bordercolor="#FFff0000" >
-			<Button name="backup" 	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\4.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\4-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
-			<Button name="setting"	width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\5.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\5-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+			<Button name="backup" 	text="" tooltip="手机" width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\4.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\4-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+			<Button name="setting"	text="" tooltip="更多" width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\5.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\5-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
 		</VerticalLayout>
 	</VerticalLayout>
-	<HorizontalLayout bkcolor="#FFFF0000" width="240" minwidth="200" maxwidth="300" sepwidth="20" sepimm="true">
-		<VerticalLayout bkcolor="#FFE6E8EB" >
-			<!--<ComputerExamine />-->
-			<Control height="30" />
-			<HorizontalLayout height="30" >
-				<Control width="10" />
-				<Edit 	name="search" text="搜索" tooltip="请输入想要搜索的内容!"	minwidth="180"  bordersize="1" borderround="8,8" bordercolor="#FFC0C0C0" />
-				<HorizontalLayout>
+	<HorizontalLayout bkcolor="#FFE6E8EB" width="240" minwidth="200" maxwidth="300" sepwidth="20" sepimm="true">
+		<TabLayout name="tab_chatlist" text="" tooltip="" float="false" bordersize="0" bordercolor="#FF07676">
+			<!--page1-->
+			<VerticalLayout bkcolor="#FFE6E8EB" >
+				<!--<ComputerExamine />-->
+				<Control height="30" />
+				<HorizontalLayout height="30" >
 					<Control width="10" />
-					<Button name="add" tooltip="添加" width="30" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' " hotimage="file='image\number\新建联系人-hover.png' source='0,0,54,54' dest='0,0,50,50' "  pushedimage="file='image\number\新建联系人-down.png' source='0,0,54,54' dest='0,0,50,50' " />
+					<Edit 	name="search" text="搜索" tooltip="请输入想要搜索的内容!"	minwidth="180" width="180"  bordersize="1" borderround="8,8" bordercolor="#FFC0C0C0" />
+					<HorizontalLayout>
+						<Control width="10" />
+						<Button name="add" tooltip="添加" width="30" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' " hotimage="file='image\number\新建联系人-hover.png' source='0,0,54,54' dest='0,0,50,50' "  pushedimage="file='image\number\新建联系人-down.png' source='0,0,54,54' dest='0,0,50,50' " />
+					</HorizontalLayout>
 				</HorizontalLayout>
-			</HorizontalLayout>
-			<VerticalLayout bordersize="0" bordercolor="#FF0000FF" >
-				<List name="chatlist" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="0" bordercolor="#FFFF0000" itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
-				</List>
+				<VerticalLayout bordersize="0" bordercolor="#FF0000FF" >
+					<List name="chatlist" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false" bordersize="0" bordercolor="#FFFF0000" itemselectedbkcolor="#FFC4C4C5" itemhotbkcolor="#FFDDDBDA" header="hidden" inset="3,3,3,3" bkimage="file='downlist_bk.png' ytiled='true'">
+					</List>
+				</VerticalLayout>
 			</VerticalLayout>
-		</VerticalLayout>
+			<!--page2-->
+			<VerticalLayout>
+				<Control height="30" />
+				<HorizontalLayout height="30" >
+					<Control width="10" />
+					<Edit 	name="search" text="搜索" tooltip="请输入想要搜索的内容!"	minwidth="180" width="180"  bordersize="1" borderround="8,8" bordercolor="#FFC0C0C0" />
+					<HorizontalLayout>
+						<Control width="10" />
+						<Button name="add" tooltip="添加" width="30" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' " hotimage="file='image\number\新建联系人-hover.png' source='0,0,54,54' dest='0,0,50,50' "  pushedimage="file='image\number\新建联系人-down.png' source='0,0,54,54' dest='0,0,50,50' " />
+					</HorizontalLayout>
+				</HorizontalLayout>
+				<Label text="page2" />
+			</VerticalLayout>
+			<!--page3-->
+			<VerticalLayout>
+				<Control height="30" />
+				<HorizontalLayout height="30" >
+					<Control width="10" />
+					<Edit 	name="search" text="搜索" tooltip="请输入想要搜索的内容!"	minwidth="180" width="180"  bordersize="1" borderround="8,8" bordercolor="#FFC0C0C0" />
+				</HorizontalLayout>
+				<Label text="page3" />
+			</VerticalLayout>
+		</TabLayout>
 		<Label width="1" bkcolor="#FFC0C0C0" borderround="5,5" />
 		<Button width="5" bkcolor="#FFF2F3F5" mouse="false" />
 	</HorizontalLayout>
@@ -61,9 +87,12 @@
 			<VerticalLayout visible="true" name="body">
 				<VerticalLayout >
 					<TabLayout name="tab_main" text="" tooltip="" float="false" bordersize="0" bordercolor="#FF07676">
+						<HorizontalLayout inset="341,285,341,285" bkcolor="#FFF5F5F5" >
+							<Label name="bkground" bkimage="file='image\number\拨号-hover.png' source='0,0,104,104'  " />
+						</HorizontalLayout>
 						<!-- Page 1-->
 						<VerticalLayout virtualwnd="page1">
-							<VerticalLayout minheight="200" >
+							<VerticalLayout minheight="300" >
 								<HorizontalLayout height="35" inset="0,1,0,0">
 									<Edit 	name="alias" 		text="群名或别名(科达视讯产品线)" enabled="false" bordersize="0" bordercolor="#FF00FFF0" disabledtextcolor="#FF000000" bkcolor="#FFF2F3F5" /> 
 									<Label 	name="status" 		text="" width="35" bkimage="file='image\number\井号-hover.png' source='0,0,104,104' dest='5,5,30,30' " bordersize="0" bordercolor="#FF000000" />
@@ -72,10 +101,10 @@
 									<Button name="department" 	text="部门" bordersize="0" bordercolor="#FFFF0FFF" />
 									<Control bordersize="0" bordercolor="#FF000000" />
 								</HorizontalLayout>
-								<List name="message_list" text="" vscrollbar="true" hscrollbar="true" tooltip="" float="false"  bordercolor="#FF1B4876" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'">  itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF"-->
+								<List name="message_list" text="" vscrollbar="true" hscrollbar="true" autovscroll="true" tooltip="" float="false"  bordercolor="#FF1B4876" header="hidden" inset="3,3,3,3" > <!-- bkimage="file='downlist_bk.png' ytiled='true'">  itemselectedbkcolor="#FFC1E3FF" itemhotbkcolor="#FFE9F5FF"-->
 								</List>  
 							</VerticalLayout>
-							<VerticalLayout height="180" minheight="80" sepheight="-15" sepimm="true">
+							<VerticalLayout height="180" minheight="80" maxheight="280" sepheight="-15" sepimm="true">
 								<Label height="1" bkcolor="#FFC0C0C0" borderround="5,5" />
 								<Button height="5" bkcolor="#FFFFFFFF" mouse="false" />
 								<RichEdit name="messageinput" text="Input your messages:" inset="5,0,5,5"  wantreturn="true" bkcolor="#FFFFFFFF" bordersize="0" bordercolor="#FF0000FF" />

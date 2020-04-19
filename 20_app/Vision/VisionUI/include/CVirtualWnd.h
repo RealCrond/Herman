@@ -14,6 +14,7 @@ public:
 	void OnItemClick(TNotifyUI &msg);
 	void OnItemDbClick(TNotifyUI &msg);
 	void OnSendMessage(TNotifyUI &msg);
+	void OnSend(TNotifyUI &msg);
 
 private:
 	CPaintManagerUI* m_pPaintManager;

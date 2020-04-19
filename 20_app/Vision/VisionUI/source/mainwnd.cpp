@@ -1,4 +1,4 @@
-/*************
+ï»¿/*************
 
 
 
@@ -10,7 +10,7 @@
 DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("closebtn"), OnClose)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
-	//DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
 DUI_END_MESSAGE_MAP()
 
 
@@ -56,7 +56,7 @@ void CMainwnd::InitWindow()
 	//m_pList->SetItemHLineColor(0xFFFFFFFF);
 
 	CEditUI* pEdit = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("search")));
-	pEdit->SetToolTip(_T("ÇëÊäÈëÏëÒªËÑË÷µÄÄÚÈÝ!"));
+	pEdit->SetToolTip(_T("è¯·è¾“å…¥æƒ³è¦æœç´¢çš„å†…å®¹!"));
 
 	int nWidth = 150;
 	int nHeight = 50;
@@ -74,7 +74,7 @@ void CMainwnd::InitWindow()
 	pListChatElemTime->SetEnabled(FALSE);
 	pListChatElemTime->SetBkColor(0xFFF2F3F5);
 	m_pList->Add(pListChatElemTime);
-	for (size_t i = 0; i < 5; i++)
+	for (size_t i = 0; i < 15; i++)
 	{
 		CLabelUI* pFriendProfile = new CLabelUI();
 		pFriendProfile->SetFixedWidth(50);
@@ -84,7 +84,7 @@ void CMainwnd::InitWindow()
 		//pFriendProfile->SetBkColor(0xFF00FF00);
 		CVerticalLayoutUI* pMessageLayout = new CVerticalLayoutUI();
 		CLabelUI* pMessage = new CLabelUI();
-		pMessage->SetText(_T("ÊÕµ½Ò»ÌõÏûÏ¢£¡"));
+		pMessage->SetText(_T("æ”¶åˆ°ä¸€æ¡æ¶ˆæ¯ï¼"));
 		pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
 		pMessage->SetFixedHeight(30);
 		pMessage->SetAttribute(_T("bordersize"), _T("1"));
@@ -103,11 +103,11 @@ void CMainwnd::InitWindow()
 		if (rand() % 2)
 		{
 			//pFriendProfile->SetText(_T("Me"));
-			pFriendProfile->SetAttribute(_T(""), _T(""));    //É¸Ñ¡-hover.png 54*54 normalimage="file='image\number\ÐÂ½¨ÁªÏµÈË.png' source='0,0,54,54' dest='0,0,50,50' "
-			//pFriendProfile->SetBkImage(_T("file=\'image\number\É¸Ñ¡-hover.png\' source=\'0,0,54,54\' dest=\'0,0,50,50\'"));
-			pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\É¸Ñ¡-hover.png' source='0,0,54,54' dest='5,5,45,45' "));
+			pFriendProfile->SetAttribute(_T(""), _T(""));    //ç­›é€‰-hover.png 54*54 normalimage="file='image\number\æ–°å»ºè”ç³»äºº.png' source='0,0,54,54' dest='0,0,50,50' "
+			//pFriendProfile->SetBkImage(_T("file=\'image\number\ç­›é€‰-hover.png\' source=\'0,0,54,54\' dest=\'0,0,50,50\'"));
+			pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\ç­›é€‰-hover.png' source='0,0,54,54' dest='5,5,45,45' "));
 			pMessage->SetAttribute(_T("align"), _T("right"));
-			pMessage->SetText(_T("ÎÒ·¢³öµÄÒ»ÌõÏûÏ¢£¡"));
+			pMessage->SetText(_T("æˆ‘å‘å‡ºçš„ä¸€æ¡æ¶ˆæ¯ï¼"));
 			CControlUI* pCtrlUI = new CControlUI();
 			pHLayout->Add(pCtrlUI);
 			pHLayout->Add(pMessageLayout);
@@ -116,7 +116,7 @@ void CMainwnd::InitWindow()
 		else
 		{
 			//pFriendProfile->SetText(_T("Friend"));
-			pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\É¸Ñ¡-down.png' source='0,0,54,54' dest='5,5,45,45' "));
+			pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\ç­›é€‰-down.png' source='0,0,54,54' dest='5,5,45,45' "));
 			pMessage->SetAttribute(_T("align"), _T("left"));
 			pHLayout->Add(pFriendProfile);
 			pHLayout->Add(pMessageLayout);
@@ -134,7 +134,7 @@ void CMainwnd::InitWindow()
 	m_pTabLayout = static_cast<CTabLayoutUI*>(m_PaintManager.FindControl(_T("tab_main")));	
 
 	CEditUI* pEditAlias = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("alias")));
-	pEditAlias->SetText(_T("ÈºÃû»ò±ðÃû-ÊÓÑ¶²úÆ·Ïß"));
+	pEditAlias->SetText(_T("ç¾¤åæˆ–åˆ«å-è§†è®¯äº§å“çº¿"));
 	pEditAlias->SetAutoSelAll(true);
 	pEditAlias->SetAttribute(_T("font"), _T("3"));
 	pEditAlias->SetAttribute(_T("enabled"), _T("false"));
@@ -153,14 +153,14 @@ void CMainwnd::InitWindow()
 		CDuiString name;
 		name.Format(_T("chatlistitem%d"), i + 1);
 		CDuiString message;
-		message.Format(_T("%dÕâÊÇÒ»Ìõ×îÐÂÀúÊ·ÏûÏ¢¼ÇÂ¼!"), i + 1);
+		message.Format(_T("%dè¿™æ˜¯ä¸€æ¡æœ€æ–°åŽ†å²æ¶ˆæ¯è®°å½•!"), i + 1);
 		CDuiString time;
 		time.Format(_T("time%d"), i + 1);
 
-		pListChatElem1->Select( i%2 );
+		pListChatElem1->Select( false );
 		pListChatElem1->SetName( name );
 		pListChatElem1->InitContainer(name, message, time);
-		pListChatElem1->SetToolTip(_T("ÕâÊÇÒ»ÌõÌáÊ¾"));
+		pListChatElem1->SetToolTip(_T("è¿™æ˜¯ä¸€æ¡æç¤º"));
 		pListChat->Add(pListChatElem1);
 	}
 
@@ -170,9 +170,11 @@ void CMainwnd::InitWindow()
 
 	CLabelUI* plabelDep = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("department")));
 	plabelDep->SetFixedWidth(plabelDep->GetText().GetLength() * 18);
+
+
 }
 
-/********  ¿Ø¼þÏûÏ¢ÏìÓ¦º¯Êý  *******/
+/********  æŽ§ä»¶æ¶ˆæ¯å“åº”å‡½æ•°  *******/
 void CMainwnd::OnClose(TNotifyUI& msg)
 {
 	Close();
@@ -181,19 +183,39 @@ void CMainwnd::OnClose(TNotifyUI& msg)
 
 void CMainwnd::OnOptionSelectChange(TNotifyUI &msg)
 {
-	//::MessageBox(NULL, _T("OnOptionSelectChange!"), _T("Duilib Demo"), MB_OK);	
-	m_pTabLayout->SelectItem(rand() % 3);
+	//::MessageBox(NULL, _T("OnOptionSelectChange!"), _T("Duilib Demo"), MB_OK);
+	CTabLayoutUI* pTabLayoutChatlist = static_cast<CTabLayoutUI*>(m_PaintManager.FindControl(_T("tab_chatlist")));
+	CDuiString name = msg.pSender->GetName();
+	if ( name == _T("chats"))
+	{
+		pTabLayoutChatlist->SelectItem( 0 );
+	}
+	else if ( name == _T("contacts"))
+	{
+		pTabLayoutChatlist->SelectItem(1);
+	}
+	else if (name == _T("favorites"))
+	{
+		pTabLayoutChatlist->SelectItem(2);
+	}
+
 }
 
 void CMainwnd::OnItemClick(TNotifyUI &msg)
 {
-	::MessageBox(NULL, _T("CMainwnd::OnItemClick!"), _T("Duilib Demo"), MB_OK);
+	//::MessageBox(NULL, _T("CMainwnd::OnItemClick!"), _T("Duilib Demo"), MB_OK);
+	//if (msg.pSender->GetParent()->GetName() == _T("chatlist"))
+	{
+		m_pTabLayout->SelectItem(rand() % 3);
+	}
+	
 }
 
-/*******  ×Ô¶¨ÒåÏûÏ¢ÏìÓ¦º¯Êý  ********/
+/*******  è‡ªå®šä¹‰æ¶ˆæ¯å“åº”å‡½æ•°  ********/
 LRESULT	CMainwnd::OnTestInd(WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-	::MessageBox(NULL, _T("alert! ²âÊÔÊÕµ½Ò»ÌõÓÃ»§×Ô¶¨ÒåÏûÏ¢!"), _T("Duilib Demo"), MB_OK);
+	//::MessageBox(NULL, _T("alert! æµ‹è¯•æ”¶åˆ°ä¸€æ¡ç”¨æˆ·è‡ªå®šä¹‰æ¶ˆæ¯!"), _T("Duilib Demo"), MB_OK);
 	//m_pTabLayout->SelectItem(2);
+
 	return 0;
 }

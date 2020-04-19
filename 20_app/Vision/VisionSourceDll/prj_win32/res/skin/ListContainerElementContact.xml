@@ -2,7 +2,7 @@
 <Window mininfo="460,50" name="ListContainerElementContact" >
 	<HorizontalLayout name="" text="" tooltip="" float="false" bkcolor="#006B93B2" childpadding="10" inset="5,12,5,5">
 		<HorizontalLayout width="40" widht="40">
-			<Label nmae="profileimage" text="icon" align="center" bkcolor="#FFFFFFFF" width="40" height="40" borderround="10,10" />
+			<Label nmae="profileimage" text="" bkcolor="#006B93B2" bkimage="file='image\number\筛选-hover.png' source='0,0,54,54' dest='0,0,40,40' " align="center" bkcolor="#FFFFFFFF" width="40" height="40" borderround="10,10" />
 		</HorizontalLayout>
 		<VerticalLayout>
 			<Label name="alias" text="alias" align="left" />
