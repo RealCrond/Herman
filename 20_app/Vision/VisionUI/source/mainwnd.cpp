@@ -12,7 +12,9 @@ DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("file"), OnWeiFile)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_MENU, _T("setting"), OnRightMenu)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
-	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_CLICK,OnClick)
+	//DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_MENU, OnMenu)
 DUI_END_MESSAGE_MAP()
 
 
@@ -145,6 +147,7 @@ void CMainwnd::InitWindow()
 	pEditAlias->SetFixedWidth(pEditAlias->GetText().GetLength() * 18);
 
 	CListUI* pListChat = static_cast<CListUI*>(m_PaintManager.FindControl(_T("chatlist")));
+	pListChat->SetAttribute(_T("menu"), _T("true"));
 	for (size_t i = 0; i < 20; i++)
 	{
 		CListContainerElementContact* pListChatElem1 = new CListContainerElementContact();
@@ -163,6 +166,7 @@ void CMainwnd::InitWindow()
 		pListChatElem1->SetName( name );
 		pListChatElem1->InitContainer(name, message, time);
 		pListChatElem1->SetToolTip(_T("这是一条提示"));
+		pListChatElem1->SetAttribute(_T("menu"), _T("true"));
 		pListChat->Add(pListChatElem1);
 	}
 
@@ -229,6 +233,35 @@ void CMainwnd::OnItemClick(TNotifyUI &msg)
 		m_pTabLayout->SelectItem(rand() % 3);
 	}
 	
+}
+
+void CMainwnd::OnMenu(TNotifyUI& msg)
+{
+	CListUI* pListChat = static_cast<CListUI*>(m_PaintManager.FindControl(_T("chatlist")));
+	pListChat->GetCurSel();
+	CDuiString cursel;
+	cursel.Format(_T("item%d"), pListChat->GetCurSel());
+	//::MessageBox(NULL, cursel + _T("CMainwnd::OnMenu"), _T("Duilib Demo"), MB_OK);
+	if (pMenuWnd != NULL)
+	{
+		pMenuWnd->Close();
+	}
+	pMenuWnd = new CRightMenuContact();
+	LPPOINT pos = new POINT();
+	GetCursorPos(pos);
+	pMenuWnd->Create(NULL,_T("Right Menu"), UI_WNDSTYLE_CONTAINER, WS_EX_TOOLWINDOW, pos->x, pos->y, 112, 160);
+	MoveWindow(pMenuWnd->GetHWND(), pos->x, pos->y, 112, 160, FALSE);
+	pMenuWnd->ShowWindow();
+	return;
+}
+
+void CMainwnd::OnClick(TNotifyUI &msg)
+{
+	if (pMenuWnd != NULL)
+	{
+		pMenuWnd->Close();
+	}
+	return;
 }
 
 /*******  自定义消息响应函数  ********/

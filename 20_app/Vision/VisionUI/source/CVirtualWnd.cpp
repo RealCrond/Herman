@@ -13,6 +13,7 @@ DUI_BEGIN_MESSAGE_MAP(CVirtualWndPage1, CNotifyPump)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_RETURN, OnSendMessage)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)   //这个会拦截mainwnd的itemclick消息
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMDBCLICK, OnItemDbClick)   //这个会拦截mainwnd的itemclick消息
+	//DUI_ON_MSGTYPE(DUI_MSGTYPE_MENU, OnMenu)
 DUI_END_MESSAGE_MAP()
 
 CVirtualWndPage1::CVirtualWndPage1()
@@ -195,5 +196,12 @@ void CVirtualWndPage1::OnSend(TNotifyUI &msg)
 	//SIZE szScrollPos = pList->GetScrollPos();
 	//szScrollPos.cy = szScrollRange.cy;
 	//pList->SetScrollPos(szScrollPos);
+	return;
+}
+
+void CVirtualWndPage1::OnMenu(TNotifyUI& msg)
+{
+	
+	::MessageBox(NULL, _T("OnMenu"), _T("Duilib Demo"), MB_OK);
 	return;
 }

@@ -33,6 +33,9 @@
     <ClInclude Include="..\include\weifilewnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\rightmenucontact.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +54,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\source\weifilewnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\rightmenucontact.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

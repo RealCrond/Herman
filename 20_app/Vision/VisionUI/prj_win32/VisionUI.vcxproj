@@ -154,6 +154,7 @@
     <ClInclude Include="..\include\ControlEx.h" />
     <ClInclude Include="..\include\CVirtualWnd.h" />
     <ClInclude Include="..\include\mainwnd.h" />
+    <ClInclude Include="..\include\rightmenucontact.h" />
     <ClInclude Include="..\include\weifilewnd.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\source\ControlEx.cpp" />
     <ClCompile Include="..\source\CVirtualWnd.cpp" />
     <ClCompile Include="..\source\mainwnd.cpp" />
+    <ClCompile Include="..\source\rightmenucontact.cpp" />
     <ClCompile Include="..\source\weifilewnd.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

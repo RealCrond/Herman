@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window sizebox="4,4,6,6" caption="0,0,0,0" mininfo="112,245" roundcorner="3,3,3,3">
-	<Button text="111" />
-	<Button text="222" />
-	<Button text="333" />
-	<Button text="444" />
-	<Button text="555" />
-	<Button text="666" />
-	<Button text="777" />
+<Window sizebox="4,4,6,6" caption="0,0,0,0" mininfo="112,160" roundcorner="3,3,3,3">
+	<VerticalLayout bordersize="1" bordercolor="#FF000000" bkcolor="#FFFFFFFF">
+		<Control height="5" />
+		<Button text="置顶" height="30" hottextcolor="#FFFF0000" />
+		<Button text="消息免打扰" height="30"  hottextcolor="#FFFF0000" />
+		<Button text="标记" height="30" hottextcolor="#FFFF0000" />
+		<Button text="移除" height="30" hottextcolor="#FFFF0000" />
+		<Button text="清除聊天记录" height="30" hottextcolor="#FFFF0000" />
+	</VerticalLayout>
 </Window>

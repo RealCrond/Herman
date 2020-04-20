@@ -6,6 +6,7 @@
 #pragma once
 #include "CVirtualWnd.h"
 #include "weifilewnd.h"
+#include "rightmenucontact.h"
 
 class CMainwnd : public WindowImplBase
 {
@@ -32,8 +33,10 @@ public:
 	void OnClose(TNotifyUI& msg);
 	void OnWeiFile(TNotifyUI& msg);
 	void OnRightMenu(TNotifyUI& msg);
+	void OnMenu(TNotifyUI& msg);
 	void OnItemClick(TNotifyUI &msg);
 	void OnOptionSelectChange(TNotifyUI &msg);
+	void OnClick(TNotifyUI &msg);
 
 	//自定义消息及其响应函数
 	DUI_DECLARE_CUSTOM_MESSAGE_MAP()
@@ -61,4 +64,5 @@ private:
 
 	CVirtualWndPage1 m_Page1;
 	CVirtualWndPage1 m_Page2;
+	CRightMenuContact* pMenuWnd;
 };
