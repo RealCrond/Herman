@@ -9,6 +9,8 @@
 
 DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("closebtn"), OnClose)
+	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("file"), OnWeiFile)
+	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_MENU, _T("setting"), OnRightMenu)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
 DUI_END_MESSAGE_MAP()
@@ -179,6 +181,24 @@ void CMainwnd::OnClose(TNotifyUI& msg)
 {
 	Close();
 	PostQuitMessage(0);
+}
+
+void CMainwnd::OnWeiFile(TNotifyUI& msg)
+{
+	CWeifileWnd* pWeifileWnd = new CWeifileWnd();
+	if (pWeifileWnd == NULL) return;
+	pWeifileWnd->Create(NULL, _T("WeiFile Dialog"), UI_CLASSSTYLE_DIALOG, 0L, 0, 0, 512, 325);
+	pWeifileWnd->CenterWindow();
+	//::ShowWindow(*pWeifileWnd, SW_SHOW);
+	//pWeifileWnd->ShowModal();
+	pWeifileWnd->ShowWindow();
+	return;
+}
+
+void CMainwnd::OnRightMenu(TNotifyUI& msg)
+{
+	::MessageBox(NULL, _T("OnRightMenu"), _T("Duilib Demo"), MB_OK);
+	return;
 }
 
 void CMainwnd::OnOptionSelectChange(TNotifyUI &msg)

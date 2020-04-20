@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window sizebox="4,4,6,6" caption="0,0,0,0" mininfo="112,245" roundcorner="3,3,3,3">
+	<Button text="111" />
+	<Button text="222" />
+	<Button text="333" />
+	<Button text="444" />
+	<Button text="555" />
+	<Button text="666" />
+	<Button text="777" />
+</Window>

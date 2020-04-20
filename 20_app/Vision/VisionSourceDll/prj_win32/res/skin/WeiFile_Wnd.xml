@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window sizebox="4,4,6,6" caption="0,0,0,30" mininfo="512,325" roundcorner="3,3,3,3">
+	<VerticalLayout bordersize="1" bordercolor="#FF366CB3" bkcolor="#FFF8F8F8" inset="1,1,1,1" >
+		<HorizontalLayout height="30" >
+			<Label text="子窗口" />
+			<Control />
+			<Button name="closebtn" width="30" maxwidth="30" maxheight="30" normalimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30' " 	hotimage="file='image\button_close.png' source='24,0,48,24' dest='0,0,30,30'" 	pushedimage="file='image\button_close.png' source='72,0,96,24' dest='0,0,30,30'" />
+		</HorizontalLayout>
+		<VerticalLayout>
+			<Button text="menutest" bkcolor="#FF366CB3" menu="true" />
+		</VerticalLayout>
+	</VerticalLayout>
+</Window>

@@ -4,8 +4,8 @@
 
 **************/
 #pragma once
-#include "visionresourcedll.h"	
 #include "CVirtualWnd.h"
+#include "weifilewnd.h"
 
 class CMainwnd : public WindowImplBase
 {
@@ -30,6 +30,8 @@ public:
 	//控件消息及其响应函数
 	DUI_DECLARE_MESSAGE_MAP()
 	void OnClose(TNotifyUI& msg);
+	void OnWeiFile(TNotifyUI& msg);
+	void OnRightMenu(TNotifyUI& msg);
 	void OnItemClick(TNotifyUI &msg);
 	void OnOptionSelectChange(TNotifyUI &msg);
 

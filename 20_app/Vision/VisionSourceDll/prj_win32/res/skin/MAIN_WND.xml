@@ -20,7 +20,7 @@
 		<Control />
 		<VerticalLayout height="100" bordersize="0" bordercolor="#FFff0000" >
 			<Button name="backup" 	text="" tooltip="手机" width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\4.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\4-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
-			<Button name="setting"	text="" tooltip="更多" width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\5.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\5-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
+			<Button name="setting" menu="true"	text="" tooltip="更多" width="50" height="50" bordersize="0" bordercolor="#FFFF0000" normalimage="file='image\number\5.png' source='0,0,104,104' dest='5,5,45,45' " hotimage="file='image\number\5-hover.png' source='0,0,104,104' dest='5,5,45,45' "  />
 		</VerticalLayout>
 	</VerticalLayout>
 	<HorizontalLayout bkcolor="#FFE6E8EB" width="240" minwidth="200" maxwidth="300" sepwidth="20" sepimm="true">
