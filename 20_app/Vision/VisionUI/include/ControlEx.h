@@ -24,6 +24,7 @@ class CListContainerElementContact : public CListContainerElementUI
 public:
 	CListContainerElementContact();
 	virtual ~CListContainerElementContact();
+	void DoEvent(TEventUI& event);
 
 	void InitContainer(CDuiString name/* = _T("Herman")*/, CDuiString mesg /*=_T("message")*/, CDuiString time /*=_T("time")*/);
 

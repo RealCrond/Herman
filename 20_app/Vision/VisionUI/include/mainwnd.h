@@ -37,10 +37,12 @@ public:
 	void OnItemClick(TNotifyUI &msg);
 	void OnOptionSelectChange(TNotifyUI &msg);
 	void OnClick(TNotifyUI &msg);
+	void OnSend(TNotifyUI &msg);
 
 	//自定义消息及其响应函数
 	DUI_DECLARE_CUSTOM_MESSAGE_MAP()
-	LRESULT	OnTestInd(WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT	OnTestInd(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 protected:
 	virtual CDuiString GetSkinFolder() {
@@ -65,4 +67,5 @@ private:
 	CVirtualWndPage1 m_Page1;
 	CVirtualWndPage1 m_Page2;
 	CRightMenuContact* pMenuWnd;
+	CWeifileWnd* pWeifileWnd;
 };

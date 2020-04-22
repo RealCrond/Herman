@@ -14,7 +14,6 @@ public:
 	void OnItemClick(TNotifyUI &msg);
 	void OnItemDbClick(TNotifyUI &msg);
 	void OnSendMessage(TNotifyUI &msg);
-	void OnSend(TNotifyUI &msg);
 	void OnMenu(TNotifyUI& msg);
 
 private:

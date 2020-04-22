@@ -11,15 +11,17 @@ DUI_BEGIN_MESSAGE_MAP(CMainwnd, WindowImplBase)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("closebtn"), OnClose)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("file"), OnWeiFile)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_MENU, _T("setting"), OnRightMenu)
+	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_CLICK, _T("send"), OnSend)
 	DUI_ON_MSGTYPE_CTRNAME(DUI_MSGTYPE_SELECTCHANGED, _T(""), OnOptionSelectChange)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_CLICK,OnClick)
-	//DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
+	DUI_ON_MSGTYPE(DUI_MSGTYPE_ITEMCLICK, OnItemClick)
 	DUI_ON_MSGTYPE(DUI_MSGTYPE_MENU, OnMenu)
 DUI_END_MESSAGE_MAP()
 
 
 DUI_BEGIN_CUSTOM_MESSAGE_MAP(CMainwnd)
 	PMSG_FUN(WM_USER + 100, OnTestInd)
+	PMSG_FUN(WM_TIMER,OnTimer)
 DUI_END_CUSTOM_MESSAGE_MAP()
 
 
@@ -158,7 +160,7 @@ void CMainwnd::InitWindow()
 		CDuiString name;
 		name.Format(_T("chatlistitem%d"), i + 1);
 		CDuiString message;
-		message.Format(_T("%d这是一条最新历史消息记录!"), i + 1);
+		message.Format(_T("%d这是一条最新历史消息记录!"), i);
 		CDuiString time;
 		time.Format(_T("time%d"), i + 1);
 
@@ -177,8 +179,9 @@ void CMainwnd::InitWindow()
 	CLabelUI* plabelDep = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("department")));
 	plabelDep->SetFixedWidth(plabelDep->GetText().GetLength() * 18);
 
-
+	SetTimer(this->GetHWND(), WM_USER + 100, 50, NULL);
 }
+
 
 /********  控件消息响应函数  *******/
 void CMainwnd::OnClose(TNotifyUI& msg)
@@ -189,10 +192,13 @@ void CMainwnd::OnClose(TNotifyUI& msg)
 
 void CMainwnd::OnWeiFile(TNotifyUI& msg)
 {
-	CWeifileWnd* pWeifileWnd = new CWeifileWnd();
-	if (pWeifileWnd == NULL) return;
-	pWeifileWnd->Create(NULL, _T("WeiFile Dialog"), UI_CLASSSTYLE_DIALOG, 0L, 0, 0, 512, 325);
-	pWeifileWnd->CenterWindow();
+	if ( pWeifileWnd == NULL)
+	{
+		pWeifileWnd = new CWeifileWnd();
+		if (pWeifileWnd == NULL) return;
+		pWeifileWnd->Create(NULL, _T("WeiFile Dialog"), UI_CLASSSTYLE_DIALOG, 0L, 0, 0, 512, 325);
+		pWeifileWnd->CenterWindow();
+	}
 	//::ShowWindow(*pWeifileWnd, SW_SHOW);
 	//pWeifileWnd->ShowModal();
 	pWeifileWnd->ShowWindow();
@@ -202,6 +208,61 @@ void CMainwnd::OnWeiFile(TNotifyUI& msg)
 void CMainwnd::OnRightMenu(TNotifyUI& msg)
 {
 	::MessageBox(NULL, _T("OnRightMenu"), _T("Duilib Demo"), MB_OK);
+	return;
+}
+
+void CMainwnd::OnSend(TNotifyUI &msg)
+{
+
+	CListUI* pList = static_cast<CListUI*>(m_PaintManager.FindControl(_T("message_list")));
+
+	int nWidth = 150;
+	int nHeight = 50;
+	SIZE borderround;
+	borderround.cx = 5;
+	borderround.cy = 5;
+	CLabelUI* pFriendProfile = new CLabelUI();
+	pFriendProfile->SetFixedWidth(50);
+	pFriendProfile->SetFixedHeight(50);
+	pFriendProfile->SetBorderRound(borderround);
+	pFriendProfile->SetAttribute(_T("align"), _T("center"));
+	pFriendProfile->SetAttribute(_T(""), _T(""));    //筛选-hover.png 54*54 normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' "
+	pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\筛选-hover.png' source='0,0,54,54' dest='5,5,45,45' "));
+	CVerticalLayoutUI* pMessageLayout = new CVerticalLayoutUI();
+	CLabelUI* pMessage = new CLabelUI();
+	CRichEditUI* pEdit = static_cast<CRichEditUI*>(m_PaintManager.FindControl(_T("messageinput")));
+	pMessage->SetText(pEdit->GetText());
+	pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
+	pMessage->SetFixedHeight(30);
+	pMessage->SetAttribute(_T("bordersize"), _T("1"));
+	pMessage->SetBkColor(0xFFCCE4FC);
+	pMessage->SetBorderRound(borderround);
+	pMessage->SetAttribute(_T("align"), _T("right"));
+	CControlUI* pCtrlUITop = new CControlUI();
+	pMessageLayout->Add(pCtrlUITop);
+	pMessageLayout->Add(pMessage);
+	CControlUI* pCtrlUIBot = new CControlUI();
+	pMessageLayout->Add(pCtrlUIBot);
+	//pMessageLayout->SetBkColor(0xFFFF0000);
+	pMessageLayout->SetFixedWidth(pMessage->GetFixedWidth());
+	CHorizontalLayoutUI* pHLayout = new CHorizontalLayoutUI();
+	pHLayout->SetMinWidth(nWidth);
+	pHLayout->SetMinHeight(nHeight);
+
+	CControlUI* pCtrlUI = new CControlUI();
+	pHLayout->Add(pCtrlUI);
+	pHLayout->Add(pMessageLayout);
+	pHLayout->Add(pFriendProfile);
+
+	CListContainerElementUI* pListItem = new CListContainerElementUI();
+	pListItem->SetMinWidth(nWidth);
+	pListItem->SetMinHeight(nHeight);
+	pListItem->Add(pHLayout);
+	pListItem->SetEnabled(FALSE);
+	pListItem->SetBkColor(0xFFF2F3F5);
+	pList->Add(pListItem);
+
+	SetTimer(this->GetHWND(), WM_USER + 100, 50, NULL);
 	return;
 }
 
@@ -230,7 +291,12 @@ void CMainwnd::OnItemClick(TNotifyUI &msg)
 	//::MessageBox(NULL, _T("CMainwnd::OnItemClick!"), _T("Duilib Demo"), MB_OK);
 	//if (msg.pSender->GetParent()->GetName() == _T("chatlist"))
 	{
+		int index = rand() % 3;
 		m_pTabLayout->SelectItem(rand() % 3);
+		if ( index == 2)
+		{
+			SetTimer(this->GetHWND(), WM_USER + 100, 50, NULL);
+		}
 	}
 	
 }
@@ -265,10 +331,24 @@ void CMainwnd::OnClick(TNotifyUI &msg)
 }
 
 /*******  自定义消息响应函数  ********/
-LRESULT	CMainwnd::OnTestInd(WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+LRESULT	CMainwnd::OnTestInd(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-	//::MessageBox(NULL, _T("alert! 测试收到一条用户自定义消息!"), _T("Duilib Demo"), MB_OK);
+	::MessageBox(NULL, _T("alert! 测试收到一条用户自定义消息!"), _T("Duilib Demo"), MB_OK);
 	//m_pTabLayout->SelectItem(2);
 
+	return 0;
+}
+
+
+LRESULT CMainwnd::OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	CDuiString str;
+	str.Format(_T("uMsg %d "), wParam);
+	if ( wParam == WM_USER+100 )
+	{
+		KillTimer(this->GetHWND(), wParam);
+		m_pList->EndDown();
+		//::MessageBox(NULL, str + _T("OnTimerTest"), _T("Duilib Demo"), MB_OK);
+	}
 	return 0;
 }
