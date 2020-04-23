@@ -237,7 +237,13 @@ void CMainwnd::OnSend(TNotifyUI &msg)
 	pMessage->SetAttribute(_T("bordersize"), _T("1"));
 	pMessage->SetBkColor(0xFFCCE4FC);
 	pMessage->SetBorderRound(borderround);
-	pMessage->SetAttribute(_T("align"), _T("right"));
+	pMessage->SetAttribute(_T("align"), _T("center"));
+
+	HDC hdc = GetDC(m_hWnd);
+	SIZE size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, pMessage->GetText(), pMessage->GetFont(), pMessage->GetTextStyle());
+	pMessage->SetFixedWidth(size.cx + 20) ;
+	//pMessage->SetFixedHeight(size.cy);
+
 	CControlUI* pCtrlUITop = new CControlUI();
 	pMessageLayout->Add(pCtrlUITop);
 	pMessageLayout->Add(pMessage);
