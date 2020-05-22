@@ -80,6 +80,8 @@ void CMainwnd::InitWindow()
 	pListChatElemTime->SetEnabled(FALSE);
 	pListChatElemTime->SetBkColor(0xFFF2F3F5);
 	m_pList->Add(pListChatElemTime);
+	m_pList->SetItemHLineSize(2);
+	m_pList->SetItemHLineColor(0xFFF2F3F5);
 	for (size_t i = 0; i < 15; i++)
 	{
 		CLabelUI* pFriendProfile = new CLabelUI();
@@ -89,13 +91,16 @@ void CMainwnd::InitWindow()
 		pFriendProfile->SetAttribute(_T("align"), _T("center"));
 		//pFriendProfile->SetBkColor(0xFF00FF00);
 		CVerticalLayoutUI* pMessageLayout = new CVerticalLayoutUI();
-		CLabelUI* pMessage = new CLabelUI();
-		pMessage->SetText(_T("收到一条消息！"));
+		CRichEditUI* pMessage = new CRichEditUI();
+		pMessage->SetText(_T("收到一条消息！丰盛的噶三等奖大幅的时间里附件阿里束带结发辣椒水来得及发了 \
+带结发拉丝机砥砺的噶三等奖大幅的时间里附件阿里束带结发辣椒水来得及发了束	\
+带的噶三等奖大幅的时间里附件阿里束带结发辣椒水来得及发了束带"));
 		pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
 		pMessage->SetFixedHeight(30);
 		pMessage->SetAttribute(_T("bordersize"), _T("1"));
 		pMessage->SetBkColor(0xFFCCE4FC);
 		pMessage->SetBorderRound(borderround);
+		pMessage->SetMaxWidth(400);
 		CControlUI* pCtrlUITop = new CControlUI();
 		pMessageLayout->Add(pCtrlUITop);
 		pMessageLayout->Add(pMessage);
@@ -140,13 +145,17 @@ void CMainwnd::InitWindow()
 	m_pTabLayout = static_cast<CTabLayoutUI*>(m_PaintManager.FindControl(_T("tab_main")));	
 
 	CEditUI* pEditAlias = static_cast<CEditUI*>(m_PaintManager.FindControl(_T("alias")));
-	pEditAlias->SetText(_T("群名或别名-视讯产品线"));
+	pEditAlias->SetText(_T("群名：？@#@￥,.0LDJALFDJ地方垃圾来得及啊"));
 	pEditAlias->SetAutoSelAll(true);
 	pEditAlias->SetAttribute(_T("font"), _T("3"));
 	pEditAlias->SetAttribute(_T("enabled"), _T("false"));
 	pEditAlias->SetAttribute(_T("align"), _T("center"));
+	HDC hdc = GetDC(m_hWnd);
+	SIZE size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, pEditAlias->GetText(), pEditAlias->GetFont(), pEditAlias->GetTextStyle());
+	pEditAlias->SetFixedWidth(size.cx + 10);
+	//pEditAlias->SetEnabled(true);
 	//pEditAlias->SetAttribute(_T("textpadding"), _T("15,0,15,0"));
-	pEditAlias->SetFixedWidth(pEditAlias->GetText().GetLength() * 18);
+	//pEditAlias->SetFixedWidth(pEditAlias->GetText().GetLength() * 18);
 
 	CListUI* pListChat = static_cast<CListUI*>(m_PaintManager.FindControl(_T("chatlist")));
 	pListChat->SetAttribute(_T("menu"), _T("true"));
@@ -174,10 +183,19 @@ void CMainwnd::InitWindow()
 
 	CLabelUI* plabelEmail = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("email")));
 	plabelEmail->SetText(_T("liuhuan@kedacom.com"));
-	plabelEmail->SetFixedWidth(plabelEmail->GetText().GetLength() * 7);
+	//plabelEmail->SetFixedWidth(plabelEmail->GetText().GetLength() * 7);
+	size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, plabelEmail->GetText(), plabelEmail->GetFont(), plabelEmail->GetTextStyle());
+	plabelEmail->SetFixedWidth(size.cx);
+
 
 	CLabelUI* plabelDep = static_cast<CLabelUI*>(m_PaintManager.FindControl(_T("department")));
-	plabelDep->SetFixedWidth(plabelDep->GetText().GetLength() * 18);
+	//plabelDep->SetFixedWidth(plabelDep->GetText().GetLength() * 18);
+	size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, plabelDep->GetText(), plabelDep->GetFont(), plabelDep->GetTextStyle());
+	plabelDep->SetFixedWidth(size.cx);
+
+	CRichEditUI* pEdit1 = static_cast<CRichEditUI*>(m_PaintManager.FindControl(_T("messageinput")));
+	pEdit1->SetText(_T("丰盛的噶三等奖大幅的时间里附件阿里束带结发辣椒水来得及发了束带结发拉丝机砥砺奋进阿里斯顿减肥啦时间打理附件阿里三代就放大就发啦束带结发路径啊发啦但是就发酵的垃圾费"));
+	pEdit->SetEnabled(false);
 
 	SetTimer(this->GetHWND(), WM_USER + 100, 50, NULL);
 }
@@ -192,13 +210,14 @@ void CMainwnd::OnClose(TNotifyUI& msg)
 
 void CMainwnd::OnWeiFile(TNotifyUI& msg)
 {
-	if ( pWeifileWnd == NULL)
+	if ( pWeifileWnd != NULL)
 	{
-		pWeifileWnd = new CWeifileWnd();
-		if (pWeifileWnd == NULL) return;
-		pWeifileWnd->Create(NULL, _T("WeiFile Dialog"), UI_CLASSSTYLE_DIALOG, 0L, 0, 0, 512, 325);
-		pWeifileWnd->CenterWindow();
+		pWeifileWnd->Close();
 	}
+	pWeifileWnd = new CWeifileWnd();
+	if (pWeifileWnd == NULL) return;
+	pWeifileWnd->Create(NULL, _T("WeiFile Dialog"), UI_CLASSSTYLE_DIALOG, 0L, 0, 0, 512, 325);
+	pWeifileWnd->CenterWindow();
 	//::ShowWindow(*pWeifileWnd, SW_SHOW);
 	//pWeifileWnd->ShowModal();
 	pWeifileWnd->ShowWindow();
@@ -229,19 +248,20 @@ void CMainwnd::OnSend(TNotifyUI &msg)
 	pFriendProfile->SetAttribute(_T(""), _T(""));    //筛选-hover.png 54*54 normalimage="file='image\number\新建联系人.png' source='0,0,54,54' dest='0,0,50,50' "
 	pFriendProfile->SetAttribute(_T("bkimage"), _T("file='image\\number\\筛选-hover.png' source='0,0,54,54' dest='5,5,45,45' "));
 	CVerticalLayoutUI* pMessageLayout = new CVerticalLayoutUI();
-	CLabelUI* pMessage = new CLabelUI();
+	CRichEditUI* pMessage = new CRichEditUI();
 	CRichEditUI* pEdit = static_cast<CRichEditUI*>(m_PaintManager.FindControl(_T("messageinput")));
 	pMessage->SetText(pEdit->GetText());
-	pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
-	pMessage->SetFixedHeight(30);
+	//pMessage->SetFixedWidth(pMessage->GetText().GetLength() * 18);
+	pMessage->SetFixedHeight(100);
 	pMessage->SetAttribute(_T("bordersize"), _T("1"));
 	pMessage->SetBkColor(0xFFCCE4FC);
 	pMessage->SetBorderRound(borderround);
 	pMessage->SetAttribute(_T("align"), _T("center"));
+	pMessage->SetEnabled(true);
 
-	HDC hdc = GetDC(m_hWnd);
-	SIZE size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, pMessage->GetText(), pMessage->GetFont(), pMessage->GetTextStyle());
-	pMessage->SetFixedWidth(size.cx + 20) ;
+	//HDC hdc = GetDC(m_hWnd);
+	//SIZE size = CRenderEngine::GetTextSize(hdc, &m_PaintManager, pMessage->GetText(), pMessage->GetFont(), pMessage->GetTextStyle());
+	//pMessage->SetFixedWidth(size.cx + 20) ;
 	//pMessage->SetFixedHeight(size.cy);
 
 	CControlUI* pCtrlUITop = new CControlUI();
@@ -262,13 +282,15 @@ void CMainwnd::OnSend(TNotifyUI &msg)
 
 	CListContainerElementUI* pListItem = new CListContainerElementUI();
 	pListItem->SetMinWidth(nWidth);
-	pListItem->SetMinHeight(nHeight);
+	//pListItem->SetMinHeight(nHeight);
 	pListItem->Add(pHLayout);
 	pListItem->SetEnabled(FALSE);
 	pListItem->SetBkColor(0xFFF2F3F5);
+	pListItem->SetFixedHeight(100);
 	pList->Add(pListItem);
 
 	SetTimer(this->GetHWND(), WM_USER + 100, 50, NULL);
+	pEdit->SetText(_T(""));
 	return;
 }
 

@@ -107,7 +107,7 @@
 							<VerticalLayout height="180" minheight="80" maxheight="280" sepheight="-15" sepimm="true">
 								<Label height="1" bkcolor="#FFC0C0C0" borderround="5,5" />
 								<Button height="5" bkcolor="#FFFFFFFF" mouse="false" />
-								<RichEdit name="messageinput" text="Input your messages:" inset="5,0,5,5"  wantreturn="true" bkcolor="#FFFFFFFF" bordersize="0" bordercolor="#FF0000FF" />
+								<RichEdit name="messageinput" text="Input your messages:" inset="5,0,5,5"  wantreturn="true" bordersize="0" bordercolor="#FF0000FF" />
 							</VerticalLayout>
 							<HorizontalLayout height="30" bkcolor="#FFFFFFFF" inset="0,0,15,10" >
 								<Control />
