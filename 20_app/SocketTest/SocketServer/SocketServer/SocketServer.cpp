@@ -2,18 +2,62 @@
 //
 
 #include <iostream>
-#if WIN32
+#include <thread>
+#ifdef WIN32
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #endif // WIN32
 
+//using namespace std; 不能使用，否则会出错
 
 #pragma comment(lib, "ws2_32.lib")  //加载 ws2_32.dll
 
-using namespace std;
+//using namespace std;
 
 #define MYSERVERIP	"127.0.0.1"
-#define MYPROT	16000
+#define MYPROT	2500
+
+
+void HandleClient(SOCKET sClient)
+{
+	std::cout << "有客户端连接: " << std::endl;
+	char mess[] = "/*********** Welcome ************\r\n";
+	char buff[256] = { 0 };
+	char achTitle[] = "Titile->";
+
+	send(sClient, mess, sizeof(mess), 0);//发送消息给客户端
+	send(sClient, achTitle, sizeof(achTitle), 0);//发送消息给客户端
+	while (sClient != 0)
+	{
+		// 从客户端接收数据
+		memset(buff, 0, 256);
+		int nRecv = recv(sClient, buff, 256, 0);//从客户端接受消息
+		if (!strcmp(buff, "\r\n"))
+		{
+			std::cout << "回车。。。" << std::endl;
+			send(sClient, achTitle, sizeof(achTitle), 0);
+			continue;
+		}
+		if (!strcmp(buff, "bye"))
+		{
+			closesocket(sClient);
+			return;
+		}
+		if (nRecv > 0)
+		{
+			std::cout << buff << std::endl;
+			char mess[] = "server:收到了你的消息，欢迎使用!\r\n";
+			send(sClient, mess, sizeof(mess), 0);
+			//closesocket(sClient);
+			//sClient = 0;
+		}
+		else
+		{
+			std::cout << "客户端退出" << std::endl;
+			return;
+		}
+	}
+};
 
 int main()
 {
@@ -23,15 +67,12 @@ int main()
 	WSADATA wsaData;
 	if ( WSAStartup(MAKEWORD(2,2), &wsaData) != 0  )
 	{
-		cout << "Socket版本错误!" << endl;
+		std::cout << "Socket版本错误!" << std::endl;
 	}
 
 
 	nServerSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if ( nServerSocket != INVALID_SOCKET )
-	{
-		cout << "服务器启动成功!" << endl;
-	}
+
 
 	sockaddr_in Serveraddr;
 	memset(&Serveraddr, 0, sizeof(sockaddr_in*));
@@ -40,26 +81,10 @@ int main()
 	//Serveraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);
 	Serveraddr.sin_port = htons(MYPROT);
 	int nRet = bind(nServerSocket, (sockaddr *)&Serveraddr, sizeof(Serveraddr));
-	if ( nRet == 0)
-	{
-		cout << "绑定IP和端口成功!" << endl;
-	}
-	else
-	{
-		cout << "绑定IP和端口失败!" << endl;
-		return 0;
-	}
+
 
 	nRet = listen(nServerSocket, 5);
-	if ( nRet == SOCKET_ERROR )
-	{
-		cout << "监听绑定失败!" << endl;
-		return 0;
-	}
-	else
-	{
-		cout << "监听绑定成功!" << endl;
-	}
+
 
 	SOCKET sClient = 0;
 	sockaddr_in nClientSocket;
@@ -71,40 +96,12 @@ int main()
 		sClient = accept(nServerSocket, (sockaddr*)&nClientSocket, &nSizeClient);//接受客户端连接，阻塞状态;失败返回-1
 		if (sClient == SOCKET_ERROR)
 		{
-			cout << "accept连接失败" << endl;
+			std::cout << "accept连接失败" << std::endl;
 			return 0;
 		}
 
-		cout << "连接一个客户端成功" << endl;
-
-		char mess[] = "Hello Client:->";
-		send(sClient, mess, sizeof(mess), 0);//发送消息给客户端
-		//recvSocket(sClient);//接受客户端的消息
-		while (sClient != 0)
-		{
-			// 从客户端接收数据
-			memset(buff, 0, 256);
-			int nRecv = recv(sClient, buff, 256, 0);//从客户端接受消息
-			if (!strcmp(buff, "\r\n"))
-			{
-				cout << "回车。。。" << endl;
-				send(sClient, achTitle, sizeof(mess), 0);
-				continue;
-			}
-			if (nRecv > 0)
-			{
-				cout << buff << endl;
-				char mess[] = "server:收到了你的消息，欢迎使用!\n\r";
-				send(sClient, mess, sizeof(mess), 0);
-				//closesocket(sClient);
-				//sClient = 0;
-			}
-			else
-			{
-				cout << "客户端退出" << endl;
-				return 0;
-			}
-		}
+		std::thread* pth = new std::thread(HandleClient, sClient);
+		pth->detach();
 	}
 
 
