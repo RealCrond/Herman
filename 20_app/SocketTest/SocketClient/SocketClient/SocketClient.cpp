@@ -2,13 +2,14 @@
 //
 #ifdef WIN32
 	#define _WINSOCK_DEPRECATED_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
 	#include <WinSock2.h>
 	//#include <WS2tcpip.h>
 	#include <Windows.h>
 	#pragma comment(lib, "ws2_32.lib")  //加载 ws2_32.dll
 #else
 	#include <unistd.h>
-	#include <apra/inet.h>
+	#include <arpa/inet.h>
 	#define SOCKET int
 	#define INVALID_SOCKET  (SOCKET)(~0)
 	#define SOCKET_ERROR            (-1)
@@ -16,9 +17,11 @@
 
 #include <iostream>
 #include <thread>
+#include <stdio.h>
+#include <cstring>
 
-#define MYSERVERIP	"127.0.0.1"
-#define MYPROT	2501
+#define MYSERVERIP	"192.168.23.134"
+#define MYPROT	2500
 
 enum EMEvent
 {
@@ -98,11 +101,11 @@ int HandleSocket(SOCKET sClient)
 			{
 			case emLoginRsp:
 				recv(sClient, (char*)&tLoginRes + sizeof(THeader), sizeof(TLoginResult) - sizeof(THeader), 0);
-				printf("收到登录回应: %d\n", tLoginRes.result);
+				printf("收到登录回应 (emLoginRsp) : %d\n", tLoginRes.result);
 				break;
 			case emQuitInd:
 				recv(sClient, (char*)&tLogoutRes + sizeof(THeader), sizeof(TLogoutRes) - sizeof(THeader), 0);
-				printf("收到登出回应: %d\n", tLogoutRes.res);
+				printf("收到登出回应 (emQuitInd) : %d\n", tLogoutRes.res);
 				//closesocket(sClient);
 				break;
 			default:
@@ -117,7 +120,7 @@ int HandleSocket(SOCKET sClient)
 			{
 				return 0;
 			}
-			std::cout << "客户端退出！" << std::endl;
+			std::cout << "连接断开!!!" << std::endl;
 			return -1;
 		}
 	}
@@ -129,49 +132,18 @@ void HandleInput(SOCKET nLocalSocket)
 	char input[128] = {};
 	while (true)
 	{
-		scanf_s("%s", input, 128);
-
-		//if (0 == strcmp("connect", input))
-		//{
-		//	nLocalSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-		//	if (nLocalSocket != INVALID_SOCKET)
-		//	{
-		//		std::cout << "|***********启动客户端***********|\n" << std::endl;
-		//	}
-		//	else
-		//	{
-		//		std::cout << "客户端sockset创建失败!" << std::endl;
-		//		continue;
-		//	}
-		//	sockaddr_in nServeraddr;
-		//	memset(&nServeraddr, 0, sizeof(nServeraddr));
-		//	nServeraddr.sin_family = AF_INET;
-		//	inet_pton(AF_INET, MYSERVERIP, (void *)&nServeraddr.sin_addr);
-		//	//nServeraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);
-		//	nServeraddr.sin_port = htons(MYPROT);
-		//	int nRet = connect(nLocalSocket, (sockaddr*)&nServeraddr, sizeof(nServeraddr));//成功返回0。否则返回SOCKET_ERROR
-		//	if (nRet == SOCKET_ERROR)
-		//	{
-		//		std::cout << "服务器连接失败！" << std::endl;
-		//	}
-		//	else
-		//	{
-		//		printf("连接成功!\n");
-		//	}
-		//	continue;
-		//}
-		//else 
+		scanf("%s", input);
 		if (0 == strcmp("login", input))
 		{
 			char achUserName[64] = {};
 			char achPassWord[64] = {};
 			printf("请输入用户名:\n");
-			scanf_s("%s", achUserName, 64);
+			scanf("%s", achUserName);
 			printf("请输入密码:\n");
-			scanf_s("%s", achPassWord, 64);
+			scanf("%s", achPassWord);
 			TLogin* ptLogin = new TLogin();
-			strcpy_s(ptLogin->achUserName, achUserName);
-			strcpy_s(ptLogin->achPassWord, achPassWord);
+			strcpy(ptLogin->achUserName, achUserName);
+			strcpy(ptLogin->achPassWord, achPassWord);
 			send(nLocalSocket, (const char*)ptLogin, sizeof(TLogin), 0);
 		}
 		else if (0 == strcmp("logout", input))
@@ -190,11 +162,13 @@ void HandleInput(SOCKET nLocalSocket)
 
 int main()
 {
+#ifdef  _WIN32
 	WSADATA wsaData;
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0)
 	{
 		std::cout << "Socket版本加载失败\n" << std::endl;
 	}
+#endif //  _WIN32
 
 	SOCKET nLocalSocket;
 	nLocalSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -209,7 +183,7 @@ int main()
 	}
 
 	sockaddr_in nServeraddr;
-	memset(&nServeraddr, 0, sizeof(nServeraddr));
+	//memset(&nServeraddr, 0, sizeof(nServeraddr));
 	nServeraddr.sin_family = AF_INET;
 	//inet_pton(AF_INET, MYSERVERIP, (void *)&nServeraddr.sin_addr);
 	nServeraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);
@@ -247,14 +221,24 @@ int main()
 
 		if ( FD_ISSET(nLocalSocket,&fdRead) )
 		{
-			HandleSocket(nLocalSocket);
+			if (-1 == HandleSocket(nLocalSocket))
+			{
+				break;
+			}
 		}		
 	}
 
+#ifdef  _WIN32
 	closesocket(nLocalSocket);
+#else
+	close(nLocalSocket);
+#endif
 	t.join();
 
+
+#ifdef  _WIN32
 	WSACleanup(); 
+#endif
 	getchar();
 	return 0;
 }

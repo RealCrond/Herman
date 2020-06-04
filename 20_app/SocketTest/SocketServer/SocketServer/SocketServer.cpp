@@ -7,7 +7,8 @@
 	#pragma comment(lib, "ws2_32.lib")  //加载 ws2_32.dll
 #else
 	#include <unistd.h>
-	#include <apra/inet.h>
+	#include <arpa/inet.h>
+	#include <algorithm>
 	#define SOCKET int
 	#define INVALID_SOCKET  (SOCKET)(~0)
 	#define SOCKET_ERROR            (-1)
@@ -146,11 +147,11 @@ int main()
 
 	int _nport = 2500;
 	sockaddr_in Serveraddr;
-	memset(&Serveraddr, 0, sizeof(sockaddr_in*));
+	//memset(&Serveraddr, 0, sizeof(sockaddr_in*));
 	Serveraddr.sin_family = AF_INET;
 	//inet_pton(AF_INET, MYSERVERIP, (void *)&Serveraddr.sin_addr);		//方法一，通过SDL检查
 	//Serveraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);				//方法二
-	Serveraddr.sin_addr.s_addr = ADDR_ANY;								//方法三
+	Serveraddr.sin_addr.s_addr = inet_addr("192.168.23.134");								//方法三
 	Serveraddr.sin_port = htons(_nport);
 	int nRet = bind(nServerSocket, (sockaddr *)&Serveraddr, sizeof(Serveraddr));
 	while ( SOCKET_ERROR == nRet && _nport < 2510 )
@@ -164,6 +165,9 @@ int main()
 	}
 	printf("监听端口开启:%d\n", _nport);
 
+	//连接后（三次握手通过）会将此连接存在连接请求队列里面，并对队列个数+1
+	//调用accept函数接收一个连接（处于请求队列里面的后备连接）,队列个数会-1
+	//backlog的取值范围 ,一般为0-5。
 	nRet = listen(nServerSocket, 5);
 	if ( SOCKET_ERROR == nRet )
 	{
@@ -198,13 +202,17 @@ int main()
 			//printf("检查 %d  ", g_Client[n]);
 			FD_SET(*iter, &fdRead);
 			printf(" %d  ", *iter);
+			if(*iter > ndfs)
+			{	
+			   ndfs = *iter;
+			}
 		}
 		if ( !g_Client.empty() )
 		{
 			printf("\n");
 		}
 
-		int ret = select(ndfs, &fdRead, &fdWrite, &fdExp, &timeout);
+		int ret = select(ndfs+1, &fdRead, &fdWrite, &fdExp, NULL);
 		if (ret < 0 )
 		{
 			break;
@@ -215,7 +223,11 @@ int main()
 			FD_CLR(nServerSocket,&fdRead);
 			sockaddr_in clientaddr;
 			int length = sizeof(sockaddr_in);
+#ifdef _WIN32
 			SOCKET _sClient = accept(nServerSocket, (sockaddr*)&clientaddr, &length);
+#else
+			SOCKET _sClient = accept(nServerSocket, (sockaddr*)&clientaddr, (socklen_t*)&length);
+#endif
 			printf("有新客户端加入: %d, IP = %s\n", _sClient, inet_ntoa(clientaddr.sin_addr));
 			g_Client.push_back(_sClient);
 		}
@@ -237,7 +249,11 @@ int main()
 	}
 	for (auto iter = g_Client.begin(); iter != g_Client.end(); iter++)
 	{
+#ifdef _WIN32
 		closesocket(*iter);
+#else
+		close(*iter);
+#endif
 	}
 
 
