@@ -1,111 +1,251 @@
 ﻿// SocketServer.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
+#ifdef WIN32
+	#define _WINSOCK_DEPRECATED_NO_WARNINGS
+	#include <WinSock2.h>	
+	#include <Windows.h>
+	#pragma comment(lib, "ws2_32.lib")  //加载 ws2_32.dll
+#else
+	#include <unistd.h>
+	#include <apra/inet.h>
+	#define SOCKET int
+	#define INVALID_SOCKET  (SOCKET)(~0)
+	#define SOCKET_ERROR            (-1)
+#endif // WIN32
 
+#include <stdio.h>
 #include <iostream>
 #include <thread>
-#ifdef WIN32
-#include <WinSock2.h>
-#include <WS2tcpip.h>
-#endif // WIN32
+#include <vector>
 
 //using namespace std; 不能使用，否则会出错
 
-#pragma comment(lib, "ws2_32.lib")  //加载 ws2_32.dll
-
-//using namespace std;
-
 #define MYSERVERIP	"127.0.0.1"
-#define MYPROT	2500
+#define MYPROT	2501
 
-
-void HandleClient(SOCKET sClient)
+enum EMEvent
 {
-	std::cout << "有客户端连接: " << std::endl;
-	char mess[] = "/*********** Welcome ************\r\n";
-	char buff[256] = { 0 };
-	char achTitle[] = "Titile->";
+	emLoginReq,
+	emLoginRsp,
+	emQuitCmd,
+	emQuitInd,
+};
 
-	send(sClient, mess, sizeof(mess), 0);//发送消息给客户端
-	send(sClient, achTitle, sizeof(achTitle), 0);//发送消息给客户端
-	while (sClient != 0)
+struct THeader
+{
+	EMEvent emEvent;
+	int		length;
+};
+
+struct TLogin : public THeader
+{
+	TLogin()
+	{
+		emEvent = emLoginReq;
+		length = sizeof(TLogin);
+	}
+
+	char achUserName[64];
+	char achPassWord[64];
+};
+
+struct TLoginResult : public THeader
+{
+	TLoginResult()
+	{
+		emEvent = emLoginRsp;
+		length = sizeof(TLoginResult);
+		result = 0;
+	}
+	int result;
+};
+
+struct TLogout : public THeader
+{
+	TLogout()
+	{
+		emEvent = emQuitCmd;
+		length = sizeof(TLogout);
+		cmd = 0;
+	}
+	int cmd;
+};
+
+struct TLogoutRes : public THeader
+{
+	TLogoutRes()
+	{
+		emEvent = emQuitInd;
+		length = sizeof(TLogoutRes);
+		res = 0;
+	}
+	int res;
+};
+
+
+int HandleClient(SOCKET sClient)
+{
+	THeader tHeader;
+	TLogin tLoginInfo;
+	TLoginResult tLoginRes;
+	TLogout tLogout;
+	TLogoutRes tLogoutRes;
+	char recvBuff[1024] = { 0 };
+	if ( sClient != INVALID_SOCKET )
 	{
 		// 从客户端接收数据
-		memset(buff, 0, 256);
-		int nRecv = recv(sClient, buff, 256, 0);//从客户端接受消息
-		if (!strcmp(buff, "\r\n"))
+		int resultRecv = (int)recv(sClient, (char*)&tHeader, sizeof(THeader), 0);//从客户端接受消息
+		if (resultRecv > 0)
 		{
-			std::cout << "回车。。。" << std::endl;
-			send(sClient, achTitle, sizeof(achTitle), 0);
-			continue;
-		}
-		if (!strcmp(buff, "bye"))
-		{
-			closesocket(sClient);
-			return;
-		}
-		if (nRecv > 0)
-		{
-			std::cout << buff << std::endl;
-			char mess[] = "server:收到了你的消息，欢迎使用!\r\n";
-			send(sClient, mess, sizeof(mess), 0);
-			//closesocket(sClient);
-			//sClient = 0;
+			switch ( tHeader.emEvent )
+			{
+			case emLoginReq:
+				recv(sClient, (char*)&tLoginInfo + sizeof(THeader), sizeof(TLogin) - sizeof(THeader), 0);
+				printf("收到客户端%d的登录emLoginReq请求消息: %s, %s \n", sClient, tLoginInfo.achUserName, tLoginInfo.achPassWord);
+				tLoginRes.result = 8;
+				send(sClient, (const char*)&tLoginRes, sizeof(TLoginResult), 0);
+				break;
+			case emQuitCmd:
+				recv(sClient, (char*)&tLogout + sizeof(THeader), sizeof(TLogout) - sizeof(THeader), 0);
+				printf("收到客户端%d的登出emQuitCmd请求消息: %d \n", sClient, tLogout.cmd);
+				tLogoutRes.res = 9;
+				send(sClient, (const char*)&tLogoutRes, sizeof(TLogoutRes), 0);
+				break;
+			default:
+				printf("收到未知消息!\n");
+				break;
+			}
 		}
 		else
 		{
-			std::cout << "客户端退出" << std::endl;
-			return;
+			//这几种错误码，认为连接是正常的，继续接收
+			if ((resultRecv < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
+			{
+				return 0;
+				//continue;
+			}
+			printf("客户端 %d 退出！\n", sClient);
+			//break;
+			return -1;
 		}
 	}
+	return 0;
 };
 
 int main()
 {
-    std::cout << "Hello World!\n";
-	SOCKET nServerSocket; //绑定本地地址和端口号的套接口
-
+#ifdef _WIN32
 	WSADATA wsaData;
 	if ( WSAStartup(MAKEWORD(2,2), &wsaData) != 0  )
 	{
 		std::cout << "Socket版本错误!" << std::endl;
 	}
+#endif
 
+	SOCKET nServerSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-	nServerSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-
-
+	int _nport = 2500;
 	sockaddr_in Serveraddr;
 	memset(&Serveraddr, 0, sizeof(sockaddr_in*));
 	Serveraddr.sin_family = AF_INET;
-	inet_pton(AF_INET, MYSERVERIP, (void *)&Serveraddr.sin_addr);
-	//Serveraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);
-	Serveraddr.sin_port = htons(MYPROT);
+	//inet_pton(AF_INET, MYSERVERIP, (void *)&Serveraddr.sin_addr);		//方法一，通过SDL检查
+	//Serveraddr.sin_addr.s_addr = inet_addr(MYSERVERIP);				//方法二
+	Serveraddr.sin_addr.s_addr = ADDR_ANY;								//方法三
+	Serveraddr.sin_port = htons(_nport);
 	int nRet = bind(nServerSocket, (sockaddr *)&Serveraddr, sizeof(Serveraddr));
-
+	while ( SOCKET_ERROR == nRet && _nport < 2510 )
+	{
+		_nport++;
+		Serveraddr.sin_port = htons(_nport);
+		if ( SOCKET_ERROR != bind(nServerSocket, (sockaddr *)&Serveraddr, sizeof(Serveraddr)) )
+		{
+			break;
+		}
+	}
+	printf("监听端口开启:%d\n", _nport);
 
 	nRet = listen(nServerSocket, 5);
-
-
-	SOCKET sClient = 0;
-	sockaddr_in nClientSocket;
-	int nSizeClient = sizeof(nClientSocket);
-	char buff[256] = { 0 };
-	char achTitle[] = "Titile->";
-	while (nServerSocket != -1)
+	if ( SOCKET_ERROR == nRet )
 	{
-		sClient = accept(nServerSocket, (sockaddr*)&nClientSocket, &nSizeClient);//接受客户端连接，阻塞状态;失败返回-1
-		if (sClient == SOCKET_ERROR)
-		{
-			std::cout << "accept连接失败" << std::endl;
-			return 0;
-		}
-
-		std::thread* pth = new std::thread(HandleClient, sClient);
-		pth->detach();
+		std::cout << "监听失败!\n" << std::endl;
 	}
 
 
-	char ch = getchar();
+	std::vector<SOCKET> g_Client;
+
+	int ndfs = nServerSocket + 1;
+	fd_set fdRead;
+	fd_set fdWrite;
+	fd_set fdExp;
+	timeval timeout = { 2,0 };
+
+	while (true)
+	{
+		FD_ZERO(&fdRead);
+		FD_ZERO(&fdWrite);
+		FD_ZERO(&fdExp);
+
+		FD_SET(nServerSocket, &fdRead);
+
+		if (!g_Client.empty())
+		{
+			printf("所有客户端: ");
+		}
+		//for(int n = g_Client.size() - 1; n>=0; n--)
+		for (auto iter = g_Client.begin(); iter != g_Client.end(); iter++)
+		{
+			//FD_SET(g_Client[n], &fdRead);
+			//printf("检查 %d  ", g_Client[n]);
+			FD_SET(*iter, &fdRead);
+			printf(" %d  ", *iter);
+		}
+		if ( !g_Client.empty() )
+		{
+			printf("\n");
+		}
+
+		int ret = select(ndfs, &fdRead, &fdWrite, &fdExp, &timeout);
+		if (ret < 0 )
+		{
+			break;
+		}
+
+		if (FD_ISSET(nServerSocket,&fdRead))
+		{
+			FD_CLR(nServerSocket,&fdRead);
+			sockaddr_in clientaddr;
+			int length = sizeof(sockaddr_in);
+			SOCKET _sClient = accept(nServerSocket, (sockaddr*)&clientaddr, &length);
+			printf("有新客户端加入: %d, IP = %s\n", _sClient, inet_ntoa(clientaddr.sin_addr));
+			g_Client.push_back(_sClient);
+		}
+
+		for (int n = 0; n < g_Client.size(); n++)
+		{
+			if (FD_ISSET(g_Client[n],&fdRead))
+			{
+				if (-1 == HandleClient(g_Client[n]))
+				{
+					auto iter = std::find(g_Client.begin(), g_Client.end(), g_Client[n]);
+					if ( iter != g_Client.end() )
+					{
+						g_Client.erase(iter);
+					}
+				}
+			}
+		}
+	}
+	for (auto iter = g_Client.begin(); iter != g_Client.end(); iter++)
+	{
+		closesocket(*iter);
+	}
+
+
+#ifdef _WIN32
+	WSACleanup();
+#endif // _WIN32
+
+	getchar();
 	return 0;
 }
 
