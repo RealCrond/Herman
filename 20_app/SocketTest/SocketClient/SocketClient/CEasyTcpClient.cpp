@@ -111,7 +111,7 @@ int CEasyTcpClient::OnNetMsg(SOCKET sc)
 		{
 			TLogoutRes tLogoutRes;
 			//recv(sc, (char*)&tLogoutRes + sizeof(THeader), sizeof(TLogoutRes) - sizeof(THeader), 0);
-			printf("收到登出回应 (emQuitInd) : %d\n", tLogoutRes.res);
+			//printf("收到登出回应 (emQuitInd) : %d\n", tLogoutRes.res);
 		}
 		break;
 		default:

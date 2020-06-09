@@ -57,6 +57,7 @@ struct TLogout : public THeader
 		length = sizeof(TLogout);
 		cmd = 0;
 	}
+	char data[1012];
 	int cmd;
 };
 

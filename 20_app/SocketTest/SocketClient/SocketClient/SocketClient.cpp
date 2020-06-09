@@ -10,12 +10,35 @@
 
 #include "CEasyTcpClient.h"
 #include <thread>
+#include <chrono>
+
+auto _begin = std::chrono::high_resolution_clock::now();
+int _nCount = 0;
 
 void HandleInput(CEasyTcpClient* peasyTcpClient)
 {
 	char input[128] = {};
 	while (true)
 	{
+		auto timeval = std::chrono::milliseconds(100);
+		//std::this_thread::sleep_for(timeval);
+		TLogout* ptLogout = new TLogout();
+		int a = sizeof(TLogout);
+		peasyTcpClient->SendData(peasyTcpClient->GetClientSocket(), (const char*)ptLogout, sizeof(TLogout), 0);
+		delete ptLogout;
+		ptLogout = NULL;
+		_nCount++;
+
+		auto _end = std::chrono::high_resolution_clock::now();
+		double dura = std::chrono::duration_cast<std::chrono::microseconds>(_end - _begin).count() * 0.000001;
+		if (dura > 1.0)
+		{
+			printf("duration<%llf>, socket<%d>, send datasize<%d KB>\n", dura, peasyTcpClient->GetClientSocket(), _nCount );
+			_nCount = 0;
+			_begin = std::chrono::high_resolution_clock::now();
+		}
+
+		/*
 		scanf("%s", input);
 		if (0 == strcmp("login", input))
 		{
@@ -40,6 +63,7 @@ void HandleInput(CEasyTcpClient* peasyTcpClient)
 			printf("Invalid operation!\n");
 			continue;
 		}
+		*/
 	}
 
 }

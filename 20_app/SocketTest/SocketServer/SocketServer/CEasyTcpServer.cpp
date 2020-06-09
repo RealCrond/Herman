@@ -153,14 +153,14 @@ int CEasyTcpServer::OnNetMsg(SOCKET sc)
 		{
 			case emLoginReq:
 			{
-				printf("收到登录请求!\n");
+				//printf("收到登录请求!\n");
 				TLoginResult* ptLoginRes = new TLoginResult();
 				send(sc, (const char*)ptLoginRes, sizeof(TLoginResult), 0);
 			}
 			break;
 			case emQuitCmd:
 			{
-				printf("收到退出请求!\n");
+				//printf("收到退出请求!\n");
 				TLogoutRes* ptLogoutRes = new TLogoutRes();
 				send(sc, (const char*)ptLogoutRes, sizeof(TLogoutRes), 0);
 			}
