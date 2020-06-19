@@ -75,12 +75,26 @@ int CEasyTcpClient::RecvData()
 
 	if ( FD_ISSET(m_scClient,&fdRead) )
 	{
-		if ( -1 == OnNetMsg(m_scClient) )
+		char recvBuff[1024];
+		int ret = recv(m_scClient, recvBuff, sizeof(recvBuff), 0);
+		if (ret > 0)
 		{
-			printf("断开!\n");
+			if (-1 == OnNetMsg(m_scClient, recvBuff))
+			{
+				printf("断开!\n");
+				return -1;
+			}
+		}
+		else
+		{
+			//这几种错误码，认为连接是正常的，继续接收
+			if ((ret < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
+			{
+				return 0;
+			}
+			printf("<%d>断开！\n", m_scClient);
 			return -1;
 		}
-
 	}
 
 	return 0;
@@ -91,44 +105,32 @@ int CEasyTcpClient::SendData(SOCKET sc, const char* data, int len, int flags)
 	return send(sc, data, len, flags);
 }
 
-int CEasyTcpClient::OnNetMsg(SOCKET sc)
+int CEasyTcpClient::OnNetMsg(SOCKET sc,char* recvBuff)
 {
-	char recvBuff[1024];
-	int ret = recv(sc, recvBuff, sizeof(recvBuff), 0);
-	if (ret>0)
+
+	THeader* header = (THeader*)recvBuff;
+	switch (header->emEvent)
 	{
-		THeader* header = (THeader*)recvBuff;
-		switch (header->emEvent)
-		{
-		case emLoginRsp:
-		{
-			TLoginResult tLoginRes;
-			//recv(sc, (char*)&tLoginRes + sizeof(THeader), sizeof(TLoginResult) - sizeof(THeader), 0);
-			printf("收到登录回应 (emLoginRsp) : %d\n", tLoginRes.result);
-		}
-		break;
-		case emQuitInd:
-		{
-			TLogoutRes tLogoutRes;
-			//recv(sc, (char*)&tLogoutRes + sizeof(THeader), sizeof(TLogoutRes) - sizeof(THeader), 0);
-			//printf("收到登出回应 (emQuitInd) : %d\n", tLogoutRes.res);
-		}
-		break;
-		default:
-			printf("收到未知消息!\n");
-			break;
-		}
-	}
-	else
+	case emLoginRsp:
 	{
-		//这几种错误码，认为连接是正常的，继续接收
-		if ((ret < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
-		{
-			return 0;
-		}
-		printf("<%d>断开！\n", sc);
-		return -1;
+		TLoginResult tLoginRes;
+		//recv(sc, (char*)&tLoginRes + sizeof(THeader), sizeof(TLoginResult) - sizeof(THeader), 0);
+		printf("收到登录回应 (emLoginRsp) : %d\n", tLoginRes.result);
 	}
+	break;
+	case emQuitInd:
+	{
+		TLogoutRes* ptLogoutRes = (TLogoutRes*)recvBuff;
+		printf("[emQuitInd][%d][%s]\n", ptLogoutRes->res, ptLogoutRes->data);
+		//recv(sc, (char*)&tLogoutRes + sizeof(THeader), sizeof(TLogoutRes) - sizeof(THeader), 0);
+		//printf("收到登出回应 (emQuitInd) : %d\n", tLogoutRes.res);
+	}
+	break;
+	default:
+		printf("收到未知消息!\n");
+		break;
+	}
+
 	return 0;
 }
 

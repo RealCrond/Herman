@@ -56,8 +56,9 @@ struct TLogout : public THeader
 		emEvent = emQuitCmd;
 		length = sizeof(TLogout);
 		cmd = 0;
+		strcpy(data, "ÇëÇóÍË³ö!!!!");
 	}
-	char data[1012];
+	char data[4084];
 	int cmd;
 };
 
@@ -68,6 +69,8 @@ struct TLogoutRes : public THeader
 		emEvent = emQuitInd;
 		length = sizeof(TLogoutRes);
 		res = 0;
+		strcpy(data, "TLogoutRes");
 	}
+	char data[1012];
 	int res;
 };

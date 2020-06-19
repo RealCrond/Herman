@@ -23,15 +23,19 @@ void HandleInput(CEasyTcpClient* peasyTcpClient)
 		auto timeval = std::chrono::milliseconds(100);
 		//std::this_thread::sleep_for(timeval);
 		TLogout* ptLogout = new TLogout();
+		//strcpy(ptLogout->data, "我要退出!");
+		ptLogout->cmd = 88;
 		int a = sizeof(TLogout);
+		//printf("准备发送:\n");
 		peasyTcpClient->SendData(peasyTcpClient->GetClientSocket(), (const char*)ptLogout, sizeof(TLogout), 0);
 		delete ptLogout;
 		ptLogout = NULL;
-		_nCount++;
+		_nCount += 4;
+		//std::this_thread::sleep_for(std::chrono::microseconds(1000));
 
 		auto _end = std::chrono::high_resolution_clock::now();
 		double dura = std::chrono::duration_cast<std::chrono::microseconds>(_end - _begin).count() * 0.000001;
-		if (dura > 1.0)
+		if (dura >= 1.0)
 		{
 			printf("duration<%llf>, socket<%d>, send datasize<%d KB>\n", dura, peasyTcpClient->GetClientSocket(), _nCount );
 			_nCount = 0;

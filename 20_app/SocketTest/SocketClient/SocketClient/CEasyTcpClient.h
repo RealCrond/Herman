@@ -37,7 +37,7 @@ public:
 	int Connect(const char* addr_ip, unsigned short addr_port);
 	int RecvData();
 	int SendData(SOCKET sc, const char* data, int len, int flags);
-	int OnNetMsg(SOCKET sc);
+	int OnNetMsg(SOCKET sc,char* recvBuff);
 	SOCKET GetClientSocket() const;
 
 private:

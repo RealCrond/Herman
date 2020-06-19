@@ -14,6 +14,8 @@ CEasyTcpServer::CEasyTcpServer()
 {
 	m_scServer = INVALID_SOCKET;
 	m_vcScClient.clear();
+	_begin = std::chrono::high_resolution_clock::now();
+	_nCount = 0;
 }
 
 CEasyTcpServer::~CEasyTcpServer()
@@ -122,14 +124,40 @@ int CEasyTcpServer::RecvData()
 		FD_CLR(m_scServer, &fdRead);
 		Accpet();
 	}
+
 	for (unsigned int index = 0; index < m_vcScClient.size(); index++)
 	{
 		if ( FD_ISSET(m_vcScClient[index],&fdRead) )
 		{
-			if ( -1 == OnNetMsg(m_vcScClient[index]) )
+			int ret = ::recv(m_vcScClient[index], recvBuff, sizeof(recvBuff), 0);
+			//printf("%d接收量:%d\n",rand()%15,ret);
+			//校错
+			if (ret <= 0)
 			{
-				auto itr = std::find(m_vcScClient.begin(), m_vcScClient.end(), m_vcScClient[index]);
-				m_vcScClient.erase(itr);
+				//这几种错误码，认为连接是正常的，继续接收
+				if ((ret < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
+				{
+					return 0;
+				}
+				printf("客户端<%d>退出！\n", m_vcScClient[index]);
+				return -1;
+			}
+			else
+			{
+				double duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - _begin).count() * 0.000001;
+				_nCount++;
+				if (duration >= 1.0)
+				{
+					printf("duration<%llf>, server socket<%d>, send datasize<%d KB>\n", duration, m_scServer, _nCount);
+					_nCount = 0;
+					_begin = std::chrono::high_resolution_clock::now();
+				}
+				std::this_thread::sleep_for(std::chrono::milliseconds(10));
+				if (-1 == OnNetMsg(m_vcScClient[index], recvBuff))
+				{
+					auto itr = std::find(m_vcScClient.begin(), m_vcScClient.end(), m_vcScClient[index]);
+					m_vcScClient.erase(itr);
+				}
 			}
 		}
 	}
@@ -142,47 +170,108 @@ int CEasyTcpServer::SendData(SOCKET sc, const char* data, int len, int flags)
 	return send(sc, data, len, flags);
 }
 
-int CEasyTcpServer::OnNetMsg(SOCKET sc)
-{
-	char recvBuff[1024];
-	int ret = recv(sc, recvBuff, sizeof(recvBuff), 0);
-	if (ret > 0)
-	{
-		THeader* header = (THeader*)recvBuff;
-		switch (header->emEvent)
-		{
-			case emLoginReq:
-			{
-				//printf("收到登录请求!\n");
-				TLoginResult* ptLoginRes = new TLoginResult();
-				send(sc, (const char*)ptLoginRes, sizeof(TLoginResult), 0);
-			}
-			break;
-			case emQuitCmd:
-			{
-				//printf("收到退出请求!\n");
-				TLogoutRes* ptLogoutRes = new TLogoutRes();
-				send(sc, (const char*)ptLogoutRes, sizeof(TLogoutRes), 0);
-			}
-			break;
-			default:
-				break;
-		}
-	}
-	else
-	{
-		//这几种错误码，认为连接是正常的，继续接收
-		if ((ret < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
-		{
-			return 0;
-		}
-		printf("客户端<%d>退出！\n", sc);
-		return -1;
-	}
 
+int CEasyTcpServer::OnNetMsg(SOCKET sc, char* recvBuff)
+{
+	THeader* header = (THeader*)recvBuff;
+	switch (header->emEvent)
+	{
+	case emLoginReq:
+	{
+		//printf("收到登录请求!\n");
+		TLoginResult* ptLoginRes = new TLoginResult();
+		send(sc, (const char*)ptLoginRes, sizeof(TLoginResult), 0);
+	}
+	break;
+	case emQuitCmd:
+	{
+		TLogout* ptLogout = (TLogout*)(recvBuff);
+		//printf("%d\n", ptLogout->cmd);
+
+		TLogoutRes* ptLogoutRes = new TLogoutRes();
+		int res = rand() % 15;
+		ptLogoutRes->res = res;
+		strcpy(ptLogoutRes->data, "成功退出!!!");
+		//send(sc, (const char*)ptLogoutRes, sizeof(TLogoutRes), 0);
+		delete ptLogoutRes;
+		ptLogoutRes = nullptr;
+	}
+	break;
+	default:
+		//printf("未知消息!\n");
+		break;
+	}
 
 	return 0;
 }
+
+
+//int CEasyTcpServer::OnNetMsg(SOCKET sc)
+//{
+//	int ret = recv(sc, _point, sizeof(recvBuff), 0);
+//	printf("此次接收数据量: %d\n", ret);
+//	if (ret > 0)
+//	{
+//		_point = recvBuff;
+//		while ( ret > sizeof(THeader))
+//		{
+//			THeader* header = (THeader*)_point;
+//			switch (header->emEvent)
+//			{
+//			case emLoginReq:
+//			{
+//				//printf("收到登录请求!\n");
+//				TLoginResult* ptLoginRes = new TLoginResult();
+//				send(sc, (const char*)ptLoginRes, sizeof(TLoginResult), 0);
+//			}
+//			break;
+//			case emQuitCmd:
+//			{
+//				TLogout* ptLogout = (TLogout*)_point;
+//				//printf("收到退出请求!\n");
+//				printf("接收 %d\n", ptLogout->cmd);
+//
+//				TLogoutRes* ptLogoutRes = new TLogoutRes();
+//				send(sc, (const char*)ptLogoutRes, sizeof(TLogoutRes), 0);
+//				double duration = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::high_resolution_clock::now() - _begin).count() * 0.000001;
+//				_nCount++;
+//				if (duration >= 1.0)
+//				{
+//					printf("duration<%llf>, socket<%d>, send datasize<%d KB>\n", duration, sc, _nCount);
+//					_nCount = 0;
+//					_begin = std::chrono::high_resolution_clock::now();
+//				}
+//				strcpy(_point, _point + sizeof(TLogout));
+//				ret -= sizeof(TLogout);
+//			}
+//			break;
+//			default:
+//				printf("未知消息!\n");
+//				break;
+//			}
+//		}
+//
+//		if ( ret < sizeof(THeader) )
+//		{
+//			_point += ret;
+//		}
+//		
+//	}
+//	else
+//	{
+//		//这几种错误码，认为连接是正常的，继续接收
+//		if ((ret < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR))
+//		{
+//			return 0;
+//		}
+//		printf("客户端<%d>退出！\n", sc);
+//		return -1;
+//	}
+//
+//
+//	return 0;
+//}
+
 
 int CEasyTcpServer::Close()
 {

@@ -29,6 +29,7 @@
 #include <thread>
 #include <algorithm>
 #include "easytcptype.h"
+#include <chrono>
 
 class CEasyTcpServer
 {
@@ -43,11 +44,18 @@ public:
 	int Accpet();
 	int RecvData();
 	int SendData(SOCKET sc, const char* data, int len, int flags);
-	int OnNetMsg(SOCKET sc);
+	int OnNetMsg(SOCKET sc, char* recvBuff);
 	int Close();
 
 
 private:
 	SOCKET m_scServer;
 	std::vector<SOCKET> m_vcScClient;
+
+	char recvBuff[1024];
+
+	long long _nCount;
+	std::chrono::high_resolution_clock::time_point _begin;
+
+	
 };
