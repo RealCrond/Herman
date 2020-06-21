@@ -56,7 +56,7 @@ int CEasyTcpServer::Bind(const char* addr_ip, unsigned short addr_port)
 	}
 	else
 	{
-		addr_in.sin_addr.s_addr = ADDR_ANY;
+		addr_in.sin_addr.s_addr = inet_addr("127.0.0.1");
 	}
 	addr_in.sin_port = htons(addr_port);
 
@@ -81,8 +81,12 @@ SOCKET CEasyTcpServer::GetServerSocket() const
 int CEasyTcpServer::Accpet()
 {
 	sockaddr_in addr;
-	int len = sizeof(sockaddr);
-	SOCKET scClient = accept(m_scServer, (sockaddr*)&addr, &len);
+#ifdef _WIN32
+	int addrlen;
+#else
+	socklen_t addrlen;
+#endif // _WIN32
+	SOCKET scClient = ::accept(m_scServer, (sockaddr*)&addr, &addrlen);
 	//printf("有客户端<%d>加入!\n", scClient);
 	if ( scClient != INVALID_SOCKET )
 	{

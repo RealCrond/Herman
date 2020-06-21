@@ -16,6 +16,7 @@
 	#include <Windows.h>
 	#pragma comment(lib,"ws2_32.lib")
 #else
+	#include <sys/socket.h>
 	#include <unistd.h>
 	#include <arpa/inet.h>
 	#define SOCKET int
