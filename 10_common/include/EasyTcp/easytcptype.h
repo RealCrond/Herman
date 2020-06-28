@@ -56,7 +56,7 @@ struct TLogout : public THeader
 		emEvent = emQuitCmd;
 		length = sizeof(TLogout);
 		cmd = 0;
-		strcpy(data, "ÇëÇóÍË³ö!!!!");
+		strcpy(data, "Apply Quit!!!!");
 	}
 	char data[4084];
 	int cmd;
