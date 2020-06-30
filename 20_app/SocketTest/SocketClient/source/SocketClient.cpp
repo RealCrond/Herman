@@ -27,11 +27,14 @@ void HandleInput(CEasyTcpClient* peasyTcpClient)
 		ptLogout->cmd = 88;
 		int a = sizeof(TLogout);
 		//printf("准备发送:\n");
-		peasyTcpClient->SendData(peasyTcpClient->GetClientSocket(), (const char*)ptLogout, sizeof(TLogout), 0);
+		if (SOCKET_ERROR == peasyTcpClient->SendData(peasyTcpClient->GetClientSocket(), (const char*)ptLogout, sizeof(TLogout), 0))
+		{
+			break;
+		}
 		delete ptLogout;
 		ptLogout = NULL;
 		_nCount += 4;
-		//std::this_thread::sleep_for(std::chrono::microseconds(1000));
+		std::this_thread::sleep_for(std::chrono::microseconds(1000));
 
 		auto _end = std::chrono::high_resolution_clock::now();
 		double dura = std::chrono::duration_cast<std::chrono::microseconds>(_end - _begin).count() * 0.000001;
@@ -77,7 +80,7 @@ int main()
 {
 	CEasyTcpClient cEasyTcpClient;
 	cEasyTcpClient.Init();
-	cEasyTcpClient.Connect(MYSERVERIP, MYPROT);
+	cEasyTcpClient.Connect("127.0.0.1", MYPROT);
 	std::thread t(HandleInput, &cEasyTcpClient);
 	while ( INVALID_SOCKET != cEasyTcpClient.GetClientSocket() )
 	{

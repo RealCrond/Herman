@@ -12,6 +12,7 @@
 
 #ifdef _WIN32
 	#define _WINSOCK_DEPRECATED_NO_WARNINGS
+	#define _CRT_SECURE_NO_WARNINGS
 	#include <WinSock2.h>
 	#include <Windows.h>
 	#pragma comment(lib,"ws2_32.lib")
