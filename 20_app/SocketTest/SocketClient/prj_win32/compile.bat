@@ -1,8 +1,9 @@
 
 
-call "%VS140COMNTOOLS%\vsvars32.bat"
-rem echo build clean Unicode_Debug vs2010
-rem @devenv skyshare.vcxproj /ReBuild "Unicode_Debug" /Out ..\..\..\..\10-common\version\CompileInfo\skyshare_u_d_2010.txt
+rem call "%VS100COMNTOOLS%\vsvars32.bat"
+call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\VCVARS32.BAT"
+rem echo build clean Debug vs2017
+rem @devenv SocketClient.vcxproj /ReBuild "Debug" /Out ..\..\..\..\10_common\version\CompileInfo\SocketClient_2017.txt
 
-echo build clean Unicode_Release vs2010
-@devenv SocketClient.vcxproj /ReBuild "Unicode_Release" /Out ..\..\..\..\10-common\version\CompileInfo\skyshare_u_r_2010.txt
+echo build clean Release vs2017
+@devenv SocketClient.vcxproj /ReBuild "Release" /Out ..\..\..\..\10_common\version\CompileInfo\SocketClient_2017.txt
